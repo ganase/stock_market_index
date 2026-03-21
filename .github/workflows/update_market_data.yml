@@ -25,14 +25,13 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          python -m pip install beautifulsoup4
 
       - name: Update Nikkei 225 index
         run: python scripts/update_nikkei225_index.py --repo-root .
-        
-      - name: Update prices for current constituents
-        run: python scripts/update_nikkei225_prices.py --repo-root . --max-symbols 20
-  
+
+      - name: Update prices from fixed constituents CSV
+        run: python scripts/update_nikkei225_prices.py --repo-root .
+
       - name: Commit and push if data changed
         run: |
           git config user.name "github-actions[bot]"
