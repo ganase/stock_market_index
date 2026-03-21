@@ -1,1 +1,11 @@
 index_id,as_of_date,sector,code,company_name,ticker_tse,symbol_stooq,source,fetched_at
+nikkei225,2026-03-19,Pharmaceuticals,4151,"KYOWA KIRIN CO., LTD.",4151.T,4151.jp,https://indexes.nikkei.co.jp/en/nkave/index/component?idx=nk225,2026-03-21T00:00:00+09:00
+nikkei225,2026-03-19,Pharmaceuticals,4502,"TAKEDA PHARMACEUTICAL CO., LTD.",4502.T,4502.jp,https://indexes.nikkei.co.jp/en/nkave/index/component?idx=nk225,2026-03-21T00:00:00+09:00
+nikkei225,2026-03-19,Pharmaceuticals,4503,"ASTELLAS PHARMA INC.",4503.T,4503.jp,https://indexes.nikkei.co.jp/en/nkave/index/component?idx=nk225,2026-03-21T00:00:00+09:00
+nikkei225,2026-03-19,Pharmaceuticals,4506,"SUMITOMO PHARMA CO., LTD.",4506.T,4506.jp,https://indexes.nikkei.co.jp/en/nkave/index/component?idx=nk225,2026-03-21T00:00:00+09:00
+nikkei225,2026-03-19,Pharmaceuticals,4507,"SHIONOGI & CO., LTD.",4507.T,4507.jp,https://indexes.nikkei.co.jp/en/nkave/index/component?idx=nk225,2026-03-21T00:00:00+09:00
+nikkei225,2026-03-19,Pharmaceuticals,4519,"CHUGAI PHARMACEUTICAL CO., LTD.",4519.T,4519.jp,https://indexes.nikkei.co.jp/en/nkave/index/component?idx=nk225,2026-03-21T00:00:00+09:00
+nikkei225,2026-03-19,Pharmaceuticals,4523,"EISAI CO., LTD.",4523.T,4523.jp,https://indexes.nikkei.co.jp/en/nkave/index/component?idx=nk225,2026-03-21T00:00:00+09:00
+nikkei225,2026-03-19,Pharmaceuticals,4568,"DAIICHI SANKYO CO., LTD.",4568.T,4568.jp,https://indexes.nikkei.co.jp/en/nkave/index/component?idx=nk225,2026-03-21T00:00:00+09:00
+nikkei225,2026-03-19,Pharmaceuticals,4578,"OTSUKA HOLDINGS CO., LTD.",4578.T,4578.jp,https://indexes.nikkei.co.jp/en/nkave/index/component?idx=nk225,2026-03-21T00:00:00+09:00
+nikkei225,2026-03-19,Electric Machinery,4062,"IBIDEN CO., LTD.",4062.T,4062.jp,https://indexes.nikkei.co.jp/en/nkave/index/component?idx=nk225,2026-03-21T00:00:00+09:00
