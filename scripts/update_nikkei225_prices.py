@@ -1,5 +1,8 @@
 #!/usr/bin/env python3
-"""Fetch daily prices for current Nikkei 225 constituents from Stooq.
+"""Fetch daily prices for fixed Nikkei 225 constituents from Stooq.
+
+Inputs:
+- data/constituents/nikkei225/current.csv
 
 Outputs:
 - data/prices/stooq/jp/<code>.csv
@@ -16,11 +19,43 @@ from collections import defaultdict
 from datetime import datetime
 from pathlib import Path
 
-from common_market_io import csv_text, decode_bytes, ensure_dir, fetch_bytes, log, now_iso, write_status, write_text_if_changed
+from common_market_io import (
+    csv_text,
+    decode_bytes,
+    ensure_dir,
+    fetch_bytes,
+    log,
+    now_iso,
+    write_status,
+    write_text_if_changed,
+)
 
 STOOQ_CSV_URL = "https://stooq.com/q/d/l/?s={symbol}&i=d"
-PRICE_FIELDNAMES = ["code", "ticker_tse", "symbol_stooq", "date", "open", "high", "low", "close", "volume", "source", "fetched_at"]
-LATEST_PANEL_FIELDNAMES = ["code", "ticker_tse", "company_name", "sector", "date", "close", "volume", "price_file"]
+
+PRICE_FIELDNAMES = [
+    "code",
+    "ticker_tse",
+    "symbol_stooq",
+    "date",
+    "open",
+    "high",
+    "low",
+    "close",
+    "volume",
+    "source",
+    "fetched_at",
+]
+
+LATEST_PANEL_FIELDNAMES = [
+    "code",
+    "ticker_tse",
+    "company_name",
+    "sector",
+    "date",
+    "close",
+    "volume",
+    "price_file",
+]
 
 
 def parse_args() -> argparse.Namespace:
@@ -31,17 +66,30 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--retries", type=int, default=3)
     parser.add_argument("--sleep-seconds", type=float, default=0.15)
     parser.add_argument("--max-symbols", type=int, default=0, help="For testing; 0 means all")
+    parser.add_argument("--min-success-ratio", type=float, default=0.90)
     return parser.parse_args()
 
 
 def read_constituents(path: Path) -> list[dict[str, str]]:
     if not path.exists():
-        raise FileNotFoundError(f"Constituents file not found: {path}")
+        raise FileNotFoundError(
+            f"Constituents file not found: {path}. "
+            "Commit data/constituents/nikkei225/current.csv first."
+        )
     with path.open("r", newline="", encoding="utf-8-sig") as f:
         rows = list(csv.DictReader(f))
-    rows = [r for r in rows if r.get("code") and r.get("symbol_stooq")]
+
+    required = {"code", "ticker_tse", "symbol_stooq", "company_name", "sector"}
     if not rows:
         raise ValueError("Constituents CSV is empty")
+
+    missing_cols = required - set(rows[0].keys())
+    if missing_cols:
+        raise ValueError(f"Constituents CSV missing columns: {sorted(missing_cols)}")
+
+    rows = [r for r in rows if r.get("code") and r.get("symbol_stooq")]
+    if not rows:
+        raise ValueError("Constituents CSV has no usable rows")
     return rows
 
 
@@ -59,11 +107,19 @@ def parse_volume(value: str) -> str:
     return str(int(float(value)))
 
 
-def normalize_price_csv(raw_text: str, *, code: str, ticker_tse: str, symbol_stooq: str, fetched_at: str) -> list[dict[str, str]]:
+def normalize_price_csv(
+    raw_text: str,
+    *,
+    code: str,
+    ticker_tse: str,
+    symbol_stooq: str,
+    fetched_at: str,
+) -> list[dict[str, str]]:
     reader = csv.DictReader(raw_text.splitlines())
     required = {"Date", "Open", "High", "Low", "Close", "Volume"}
     if not reader.fieldnames or not required.issubset(set(reader.fieldnames)):
         raise ValueError(f"Unexpected Stooq CSV header for {symbol_stooq}: {reader.fieldnames}")
+
     rows: list[dict[str, str]] = []
     for rec in reader:
         date = rec.get("Date", "").strip()
@@ -73,9 +129,11 @@ def normalize_price_csv(raw_text: str, *, code: str, ticker_tse: str, symbol_sto
             date = datetime.strptime(date, "%Y-%m-%d").strftime("%Y-%m-%d")
         except ValueError:
             continue
+
         close_val = rec.get("Close", "").strip()
         if close_val in {"", "-"}:
             continue
+
         rows.append(
             {
                 "code": code,
@@ -91,15 +149,22 @@ def normalize_price_csv(raw_text: str, *, code: str, ticker_tse: str, symbol_sto
                 "fetched_at": fetched_at,
             }
         )
+
     if not rows:
         raise ValueError(f"No price rows parsed for {symbol_stooq}")
+
     rows.sort(key=lambda r: r["date"])
     return rows
 
 
-def build_latest_panel(constituents: list[dict[str, str]], file_map: dict[str, Path], repo_root: Path) -> list[dict[str, str]]:
+def build_latest_panel(
+    constituents: list[dict[str, str]],
+    file_map: dict[str, Path],
+    repo_root: Path,
+) -> list[dict[str, str]]:
     constituent_map = {row["code"]: row for row in constituents}
     latest_rows: list[dict[str, str]] = []
+
     for code, path in sorted(file_map.items()):
         with path.open("r", newline="", encoding="utf-8-sig") as f:
             rows = list(csv.DictReader(f))
@@ -119,13 +184,18 @@ def build_latest_panel(constituents: list[dict[str, str]], file_map: dict[str, P
                 "price_file": str(path.relative_to(repo_root)),
             }
         )
+
     return latest_rows
 
 
-def build_close_wide_recent(file_map: dict[str, Path], lookback_days: int = 260) -> tuple[list[str], list[dict[str, str]]]:
+def build_close_wide_recent(
+    file_map: dict[str, Path],
+    lookback_days: int = 260,
+) -> tuple[list[str], list[dict[str, str]]]:
     closes_by_date: dict[str, dict[str, str]] = defaultdict(dict)
     all_codes = sorted(file_map)
     all_dates: set[str] = set()
+
     for code, path in file_map.items():
         with path.open("r", newline="", encoding="utf-8-sig") as f:
             rows = list(csv.DictReader(f))
@@ -133,13 +203,16 @@ def build_close_wide_recent(file_map: dict[str, Path], lookback_days: int = 260)
             date = rec["date"]
             closes_by_date[date][code] = rec["close"]
             all_dates.add(date)
+
     fieldnames = ["date"] + all_codes
     wide_rows: list[dict[str, str]] = []
+
     for date in sorted(all_dates):
         row = {"date": date}
         for code in all_codes:
             row[code] = closes_by_date[date].get(code, "")
         wide_rows.append(row)
+
     return fieldnames, wide_rows
 
 
@@ -170,10 +243,24 @@ def main() -> int:
             symbol_stooq = row["symbol_stooq"]
             ticker_tse = row["ticker_tse"]
             url = STOOQ_CSV_URL.format(symbol=symbol_stooq)
+
             log(f"[{idx}/{len(constituents)}] fetching {symbol_stooq}")
             try:
-                raw_text = decode_bytes(fetch_bytes(url, timeout=args.timeout, retries=args.retries, sleep_seconds=args.sleep_seconds))
-                price_rows = normalize_price_csv(raw_text, code=code, ticker_tse=ticker_tse, symbol_stooq=symbol_stooq, fetched_at=fetched_at)
+                raw_text = decode_bytes(
+                    fetch_bytes(
+                        url,
+                        timeout=args.timeout,
+                        retries=args.retries,
+                        sleep_seconds=args.sleep_seconds,
+                    )
+                )
+                price_rows = normalize_price_csv(
+                    raw_text,
+                    code=code,
+                    ticker_tse=ticker_tse,
+                    symbol_stooq=symbol_stooq,
+                    fetched_at=fetched_at,
+                )
                 price_file = prices_root / f"{code}.csv"
                 changed = write_text_if_changed(price_file, csv_text(price_rows, PRICE_FIELDNAMES))
                 if changed:
@@ -186,18 +273,32 @@ def main() -> int:
         if not file_map:
             raise RuntimeError("No price files were written")
 
+        success_ratio = len(file_map) / len(constituents)
+        if success_ratio < args.min_success_ratio:
+            raise RuntimeError(
+                f"Too many price fetch failures: success_ratio={success_ratio:.3f}, "
+                f"succeeded={len(file_map)}, requested={len(constituents)}"
+            )
+
         latest_panel_rows = build_latest_panel(constituents, file_map, repo_root)
-        latest_panel_changed = write_text_if_changed(latest_panel_path, csv_text(latest_panel_rows, LATEST_PANEL_FIELDNAMES))
+        latest_panel_changed = write_text_if_changed(
+            latest_panel_path,
+            csv_text(latest_panel_rows, LATEST_PANEL_FIELDNAMES),
+        )
 
         close_wide_fields, close_wide_rows = build_close_wide_recent(file_map)
-        close_wide_changed = write_text_if_changed(close_wide_path, csv_text(close_wide_rows, close_wide_fields))
+        close_wide_changed = write_text_if_changed(
+            close_wide_path,
+            csv_text(close_wide_rows, close_wide_fields),
+        )
 
         status = {
-            "ok": len(failures) == 0,
+            "ok": True,
             "fetched_at": fetched_at,
             "symbols_requested": len(constituents),
             "symbols_succeeded": len(file_map),
             "symbols_failed": len(failures),
+            "success_ratio": round(success_ratio, 6),
             "price_files_changed": changed_files,
             "latest_panel_changed": latest_panel_changed,
             "close_wide_changed": close_wide_changed,
@@ -207,10 +308,22 @@ def main() -> int:
             "source_template": STOOQ_CSV_URL,
         }
         write_status(status_path, status)
-        log(f"prices success={len(file_map)} failures={len(failures)} changed_files={changed_files}")
-        return 1 if failures else 0
+        log(
+            f"prices success={len(file_map)} failures={len(failures)} "
+            f"success_ratio={success_ratio:.3f} changed_files={changed_files}"
+        )
+        return 0
+
     except Exception as exc:  # noqa: BLE001
-        write_status(status_path, {"ok": False, "fetched_at": fetched_at, "error": str(exc), "source_template": STOOQ_CSV_URL})
+        write_status(
+            status_path,
+            {
+                "ok": False,
+                "fetched_at": fetched_at,
+                "error": str(exc),
+                "source_template": STOOQ_CSV_URL,
+            },
+        )
         log(f"ERROR: {exc}")
         return 1
 
