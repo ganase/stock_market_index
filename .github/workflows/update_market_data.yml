@@ -29,9 +29,6 @@ jobs:
 
       - name: Update Nikkei 225 index
         run: python scripts/update_nikkei225_index.py --repo-root .
-
-      - name: Update Nikkei 225 current constituents
-        run: python scripts/update_nikkei225_constituents.py --repo-root .
         
       - name: Update prices for current constituents
         run: python scripts/update_nikkei225_prices.py --repo-root . --max-symbols 20
