@@ -44,11 +44,11 @@ jobs:
         run: python scripts/update_nikkei225_prices.py --repo-root .
 
       - name: Build Tableau exports locally
-        if: ${{ env.PUBLISH_DESTINATION != 'google-drive' || secrets.GOOGLE_DRIVE_FOLDER_ID == '' || secrets.GOOGLE_SERVICE_ACCOUNT_JSON_BASE64 == '' }}
+        if: ${{ env.PUBLISH_DESTINATION != 'google-drive' || env.GOOGLE_DRIVE_FOLDER_ID == '' || env.GOOGLE_SERVICE_ACCOUNT_JSON_BASE64 == '' }}
         run: python scripts/build_and_publish_tableau_feed.py --repo-root . --publish-destination local
 
       - name: Build Tableau exports and publish to Google Drive
-        if: ${{ env.PUBLISH_DESTINATION == 'google-drive' && secrets.GOOGLE_DRIVE_FOLDER_ID != '' && secrets.GOOGLE_SERVICE_ACCOUNT_JSON_BASE64 != '' }}
+        if: ${{ env.PUBLISH_DESTINATION == 'google-drive' && env.GOOGLE_DRIVE_FOLDER_ID != '' && env.GOOGLE_SERVICE_ACCOUNT_JSON_BASE64 != '' }}
         run: python scripts/build_and_publish_tableau_feed.py --repo-root . --publish-destination google-drive
 
       - name: Commit and push if data changed
