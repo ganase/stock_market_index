@@ -22,12 +22,15 @@ DEFAULT_HEADERS = {
     "Pragma": "no-cache",
 }
 
+
 def log(message: str) -> None:
     now = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     print(f"[{now}] {message}")
 
+
 def ensure_dir(path: Path) -> None:
     path.mkdir(parents=True, exist_ok=True)
+
 
 def fetch_bytes(
     url: str,
@@ -56,6 +59,7 @@ def fetch_bytes(
 
     raise RuntimeError(f"download failed after {retries} attempts: {last_error}")
 
+
 def decode_bytes(blob: bytes) -> str:
     for encoding in ("utf-8-sig", "utf-8", "cp932", "shift_jis", "euc_jp", "latin-1"):
         try:
@@ -63,6 +67,7 @@ def decode_bytes(blob: bytes) -> str:
         except UnicodeDecodeError:
             continue
     raise UnicodeDecodeError("unknown", blob, 0, 1, "Unable to decode content")
+
 
 def write_text_if_changed(path: Path, content: str, encoding: str = "utf-8") -> bool:
     old = None
@@ -74,12 +79,15 @@ def write_text_if_changed(path: Path, content: str, encoding: str = "utf-8") -> 
     path.write_text(content, encoding=encoding)
     return True
 
+
 def write_status(path: Path, status: dict[str, object]) -> None:
     ensure_dir(path.parent)
     path.write_text(json.dumps(status, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
+
 def now_iso() -> str:
     return datetime.now(timezone.utc).astimezone().isoformat(timespec="seconds")
+
 
 def csv_text(rows: Iterable[dict[str, object]], fieldnames: list[str]) -> str:
     from io import StringIO
