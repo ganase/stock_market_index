@@ -1,0 +1,11 @@
+code,ticker_tse,company_name,sector,date,close,volume,price_file
+4062,4062.T,"IBIDEN CO., LTD.",Electric Machinery,2026-03-18,8481.00,5431700,data/prices/stooq/jp/4062.csv
+4151,4151.T,"KYOWA KIRIN CO., LTD.",Pharmaceuticals,2026-03-18,2415.00,1378900,data/prices/stooq/jp/4151.csv
+4502,4502.T,"TAKEDA PHARMACEUTICAL CO., LTD.",Pharmaceuticals,2026-03-18,5870.00,3873700,data/prices/stooq/jp/4502.csv
+4503,4503.T,ASTELLAS PHARMA INC.,Pharmaceuticals,2026-03-18,2446.50,5936100,data/prices/stooq/jp/4503.csv
+4506,4506.T,"SUMITOMO PHARMA CO., LTD.",Pharmaceuticals,2026-03-18,1886.50,6668200,data/prices/stooq/jp/4506.csv
+4507,4507.T,"SHIONOGI & CO., LTD.",Pharmaceuticals,2026-03-18,3509.00,2053700,data/prices/stooq/jp/4507.csv
+4519,4519.T,"CHUGAI PHARMACEUTICAL CO., LTD.",Pharmaceuticals,2026-03-18,8986.00,2529400,data/prices/stooq/jp/4519.csv
+4523,4523.T,"EISAI CO., LTD.",Pharmaceuticals,2026-03-18,4945.00,838600,data/prices/stooq/jp/4523.csv
+4568,4568.T,"DAIICHI SANKYO CO., LTD.",Pharmaceuticals,2026-03-18,2977.00,6739200,data/prices/stooq/jp/4568.csv
+4578,4578.T,"OTSUKA HOLDINGS CO., LTD.",Pharmaceuticals,2026-03-18,11120.00,1015800,data/prices/stooq/jp/4578.csv
