@@ -1,24 +1,59 @@
-# Nikkei 225 daily updater for GitHub Actions
+# stock_market_index 拡張パック
 
-This repository layout lets GitHub Actions fetch the official Nikkei 225 daily CSV, normalize it, and commit updated data back into the same repository.
+このパックは、既存の `stock_market_index` リポジトリを次の構成へ拡張するためのものです。
 
-## Files
+```text
+.data/
+  indexes/
+    nikkei225/
+      daily.csv
+  constituents/
+    nikkei225/
+      current.csv
+  prices/
+    stooq/
+      jp/
+        7203.csv
+        6758.csv
+        ...
+  panels/
+    nikkei225_current_constituents_latest.csv
+    nikkei225_current_constituents_close_wide_260d.csv
+scripts/
+  common_market_io.py
+  update_nikkei225_index.py
+  update_nikkei225_constituents.py
+  update_nikkei225_prices.py
+.github/workflows/
+  update_market_data.yml
+runtime/
+  *.json   (git ignore)
+```
 
-- `update_nikkei225.py` - updater script
-- `.github/workflows/update_nikkei225.yml` - scheduled GitHub Actions workflow
-- `data/nikkei225_latest_3years.csv` - current official snapshot
-- `data/nikkei225_master.csv` - merged long-lived local history built from repeated runs
+## 追加手順
 
-## How to use
+1. 既存 repo に `scripts/` フォルダを作る
+2. このパックの `scripts/*.py` を配置する
+3. `.github/workflows/update_market_data.yml` を追加する
+4. ルートの `gitignore` を `.gitignore` に直し、このパックの内容に置き換える
+5. 旧 workflow (`update_nikkei225.yml`) は二重実行を避けるため無効化または削除する
+6. Actions の `Update market data` を `Run workflow` で1回実行する
 
-1. Create a new GitHub repository.
-2. Upload all files from this starter pack.
-3. Open the **Actions** tab and enable workflows if asked.
-4. Run **Update Nikkei 225 data** once with **Run workflow**.
-5. Confirm that `data/nikkei225_latest_3years.csv` and `data/nikkei225_master.csv` were created and committed.
+## 生成される主要ファイル
 
-## Notes
+- `data/indexes/nikkei225/daily.csv`
+  - 日経平均の公式日次データをマージした正本
+- `data/constituents/nikkei225/current.csv`
+  - 日経公式の現在構成銘柄一覧
+- `data/prices/stooq/jp/<code>.csv`
+  - 現在構成銘柄ごとの日足履歴
+- `data/panels/nikkei225_current_constituents_latest.csv`
+  - 現在構成銘柄の最新行だけを集めた一覧
+- `data/panels/nikkei225_current_constituents_close_wide_260d.csv`
+  - 直近260営業日ぶんの終値ワイド表
 
-- The public Nikkei CSV covers the latest 3 years. Your `nikkei225_master.csv` grows over time only from the days you keep collecting.
-- `data/nikkei225_status.json` is intentionally ignored so non-market days do not create empty commits.
-- If your repository uses strict branch protection, direct pushes from the workflow may be blocked. In that case, switch the workflow to create a pull request instead of pushing directly.
+## 補足
+
+- 個別銘柄の価格ソースは Stooq 想定です
+- 現在構成銘柄ベースなので、過去の入れ替えまで厳密に再現する設計ではありません
+- 将来は `topix` や `sp500` などを同じ構成で横展開できます
