@@ -128,3 +128,141 @@ python scripts/build_and_publish_tableau_feed.py --repo-root . --publish-destina
 - 現在の構成銘柄は `data/constituents/nikkei225/current.csv` の固定ファイルを使用しており、ライブスクレイピングには戻していません
 - 価格データの `trade_date` と、構成銘柄 CSV の `as_of_date` は一致しない場合があります
 - そのため、エクスポート上の会社名やセクターは「現在の固定 constituents ファイルに基づくメタデータ補完」です
+
+
+## 現在の運用状態と毎日の更新について
+
+### 毎日自動で更新されるか
+
+はい。現在の workflow は GitHub Actions の schedule で **毎週 月曜〜金曜の 07:45 UTC（16:45 JST）** に自動実行されます。
+
+現在の定期実行では、次の順番で処理されます。
+
+1. `data/indexes/nikkei225/daily.csv` を更新
+2. `data/prices/stooq/jp/*.csv` と `data/panels/*.csv` を更新
+3. Tableau 用 CSV を生成
+4. Google Drive secrets が設定済みなら Google Drive に publish
+5. `data/` 配下の変更があれば GitHub に commit / push
+
+つまり、**いまの設定で平日ごとに市場データ更新 + Tableau 出力 + Google Drive publish が自動実行される状態**です。
+
+### 手動実行との違い
+
+- `workflow_dispatch` で手動実行する場合は `publish_destination` を選べます
+- `local` を選ぶとローカル export のみ
+- `google-drive` を選ぶと Google Drive publish まで実行
+- 定期実行 (`schedule`) は、Google Drive secrets が入っていれば自動的に Google Drive publish まで進みます
+
+## 今回設定した内容の完全メモ
+
+以下は、このリポジトリで今回有効化した内容の**完全チェックリスト**です。今後の再設定や引き継ぎのために、この順番で見れば漏れません。
+
+### A. GitHub リポジトリ側で設定したもの
+
+#### 1. Workflow
+
+- ファイル: `.github/workflows/update_market_data.yml`
+- 役割:
+  - 平日 07:45 UTC / 16:45 JST に自動実行
+  - 手動実行も可能
+  - index 更新 → price 更新 → Tableau export → Google Drive publish の順に実行
+
+#### 2. Repository secrets
+
+GitHub の **Settings → Secrets and variables → Actions** で次を登録します。
+
+- `GOOGLE_DRIVE_FOLDER_ID`
+  - Google Drive の保存先フォルダ ID
+- `GOOGLE_SERVICE_ACCOUNT_JSON_BASE64`
+  - サービスアカウント JSON 全体を base64 化した文字列
+
+#### 3. 無視対象
+
+- `.gitignore` に `exports/tableau/*.csv` を追加
+- 生成された Tableau CSV は git commit しない
+
+### B. Google Cloud / Google Drive 側で設定したもの
+
+#### 1. Google Cloud プロジェクト
+
+- サービスアカウントを作成
+- Google Drive API を有効化
+
+#### 2. サービスアカウント
+
+- 使用したサービスアカウントのメールアドレス例:
+  - `stock-market-index@stock-market-index.iam.gserviceaccount.com`
+- このサービスアカウントの JSON キーを発行
+- JSON 全体を base64 化して GitHub secret `GOOGLE_SERVICE_ACCOUNT_JSON_BASE64` に登録
+
+#### 3. Shared Drive
+
+- 保存先は **個人のマイドライブではなく Shared Drive 配下のフォルダ** を使用
+- 対象 Shared Drive または対象フォルダを、サービスアカウントのメールアドレスへ共有
+- 推奨権限は、少なくともファイル作成・更新ができる権限（編集者以上）
+
+#### 4. 保存先フォルダ ID
+
+- Shared Drive 上の保存先フォルダ URL からフォルダ ID を取得
+- その ID のみを `GOOGLE_DRIVE_FOLDER_ID` に設定
+- **URL 全体は入れない**
+
+### C. リポジトリ内で追加・変更されたファイル
+
+#### 1. `scripts/build_and_publish_tableau_feed.py`
+
+- Tableau 用に 2 つの 1-file CSV を生成
+  - `exports/tableau/fact_market_prices_daily.csv`
+  - `exports/tableau/fact_market_indexes_daily.csv`
+- 必要に応じて Google Drive に upload / update
+
+#### 2. `.github/workflows/update_market_data.yml`
+
+- 手動実行 input `publish_destination` を追加
+- schedule 実行を有効化
+- Google Drive secrets を job env に注入
+- 条件付きで local export / Google Drive publish を実行
+
+#### 3. `README.md`
+
+- Tableau export の用途
+- 生成ファイル
+- Google Drive の設定
+- 運用方法
+- 注意点
+を記録
+
+#### 4. `.gitignore`
+
+- `exports/tableau/*.csv` を無視対象に追加
+
+## 今後、追加でやるべきことがあるか
+
+通常運用に入るうえで、**必須の追加作業は基本的にありません**。
+
+ただし、運用上は次の点だけ定期的に意識すると安全です。
+
+### 1. GitHub Actions の定期実行結果をたまに確認する
+
+- Stooq 側の一時制限で失敗する場合があります
+- エラーが連続する場合は、手動再実行か、取得間隔の見直しを検討します
+
+### 2. Google サービスアカウントキーの管理
+
+- キーをローテーションしたら `GOOGLE_SERVICE_ACCOUNT_JSON_BASE64` も更新する
+- キーを再作成したら Shared Drive の共有先メールアドレスが変わっていないか確認する
+
+### 3. 保存先フォルダの確認
+
+- `GOOGLE_DRIVE_FOLDER_ID` のフォルダを削除・移動・権限変更すると publish が失敗します
+- Shared Drive やフォルダ権限を変えた場合は再確認する
+
+## トラブル時の見分け方
+
+- `Service Accounts do not have storage quota`
+  - マイドライブへ書こうとしている可能性が高い
+  - Shared Drive 配下へ変更する
+- `File not found`
+  - `GOOGLE_DRIVE_FOLDER_ID` が違う、またはサービスアカウントに共有されていない
+- `Exceeded the daily hits limit`
+  - Stooq 側の取得制限。時間を空けて再実行する
