@@ -41,7 +41,15 @@ jobs:
         run: python scripts/update_nikkei225_index.py --repo-root .
 
       - name: Update prices from fixed constituents CSV
-        run: python scripts/update_nikkei225_prices.py --repo-root .
+        run: python scripts/update_nikkei225_prices.py --repo-root . --sleep-seconds 0.35 --rate-limit-cooldown-seconds 180 --rate-limit-max-retries 1
+
+      - name: Build Tableau exports locally
+        if: ${{ !(((github.event_name == 'schedule') || env.PUBLISH_DESTINATION == 'google-drive') && env.GOOGLE_DRIVE_FOLDER_ID != '' && env.GOOGLE_SERVICE_ACCOUNT_JSON_BASE64 != '') }}
+        run: python scripts/build_and_publish_tableau_feed.py --repo-root . --publish-destination local
+
+      - name: Build Tableau exports and publish to Google Drive
+        if: ${{ ((github.event_name == 'schedule') || env.PUBLISH_DESTINATION == 'google-drive') && env.GOOGLE_DRIVE_FOLDER_ID != '' && env.GOOGLE_SERVICE_ACCOUNT_JSON_BASE64 != '' }}
+        run: python scripts/build_and_publish_tableau_feed.py --repo-root . --publish-destination google-drive
 
       - name: Build Tableau exports locally
         if: ${{ !(((github.event_name == 'schedule') || env.PUBLISH_DESTINATION == 'google-drive') && env.GOOGLE_DRIVE_FOLDER_ID != '' && env.GOOGLE_SERVICE_ACCOUNT_JSON_BASE64 != '') }}

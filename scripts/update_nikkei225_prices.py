@@ -15,6 +15,7 @@ from __future__ import annotations
 import argparse
 import csv
 import sys
+import time
 from collections import defaultdict
 from datetime import datetime
 from pathlib import Path
@@ -31,6 +32,7 @@ from common_market_io import (
 )
 
 STOOQ_CSV_URL = "https://stooq.com/q/d/l/?s={symbol}&i=d"
+STOOQ_DAILY_HITS_LIMIT_MESSAGE = "Exceeded the daily hits limit"
 
 PRICE_FIELDNAMES = [
     "code",
@@ -58,6 +60,10 @@ LATEST_PANEL_FIELDNAMES = [
 ]
 
 
+class StooqRateLimitError(RuntimeError):
+    """Raised when Stooq returns a daily hits limit response."""
+
+
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Fetch Nikkei 225 constituent prices from Stooq")
     parser.add_argument("--repo-root", default=".", help="Repository root")
@@ -67,6 +73,18 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--sleep-seconds", type=float, default=0.15)
     parser.add_argument("--max-symbols", type=int, default=0, help="For testing; 0 means all")
     parser.add_argument("--min-success-ratio", type=float, default=0.90)
+    parser.add_argument(
+        "--rate-limit-cooldown-seconds",
+        type=float,
+        default=120.0,
+        help="How long to wait before retrying after a Stooq daily hits limit response",
+    )
+    parser.add_argument(
+        "--rate-limit-max-retries",
+        type=int,
+        default=1,
+        help="How many times to retry a symbol after Stooq returns a daily hits limit response",
+    )
     return parser.parse_args()
 
 
@@ -115,6 +133,9 @@ def normalize_price_csv(
     symbol_stooq: str,
     fetched_at: str,
 ) -> list[dict[str, str]]:
+    if STOOQ_DAILY_HITS_LIMIT_MESSAGE in raw_text:
+        raise StooqRateLimitError(f"Stooq rate limit hit for {symbol_stooq}: {STOOQ_DAILY_HITS_LIMIT_MESSAGE}")
+
     reader = csv.DictReader(raw_text.splitlines())
     required = {"Date", "Open", "High", "Low", "Close", "Volume"}
     if not reader.fieldnames or not required.issubset(set(reader.fieldnames)):
@@ -155,6 +176,53 @@ def normalize_price_csv(
 
     rows.sort(key=lambda r: r["date"])
     return rows
+
+
+def fetch_symbol_price_rows(
+    *,
+    code: str,
+    ticker_tse: str,
+    symbol_stooq: str,
+    fetched_at: str,
+    timeout: int,
+    retries: int,
+    sleep_seconds: float,
+    rate_limit_cooldown_seconds: float,
+    rate_limit_max_retries: int,
+) -> list[dict[str, str]]:
+    url = STOOQ_CSV_URL.format(symbol=symbol_stooq)
+    attempts = rate_limit_max_retries + 1
+
+    for attempt in range(1, attempts + 1):
+        raw_text = decode_bytes(
+            fetch_bytes(
+                url,
+                timeout=timeout,
+                retries=retries,
+                sleep_seconds=sleep_seconds,
+            )
+        )
+        try:
+            return normalize_price_csv(
+                raw_text,
+                code=code,
+                ticker_tse=ticker_tse,
+                symbol_stooq=symbol_stooq,
+                fetched_at=fetched_at,
+            )
+        except StooqRateLimitError:
+            if attempt >= attempts:
+                raise RuntimeError(
+                    f"Stooq rate limit persisted for {symbol_stooq}. "
+                    "Wait and rerun the workflow later, or increase --sleep-seconds."
+                )
+            log(
+                f"Stooq rate limit hit for {symbol_stooq}; "
+                f"waiting {rate_limit_cooldown_seconds:.0f}s before retry {attempt + 1}/{attempts}"
+            )
+            time.sleep(rate_limit_cooldown_seconds)
+
+    raise RuntimeError(f"Unreachable rate limit handling state for {symbol_stooq}")
 
 
 def build_latest_panel(
@@ -242,24 +310,19 @@ def main() -> int:
             code = row["code"]
             symbol_stooq = row["symbol_stooq"]
             ticker_tse = row["ticker_tse"]
-            url = STOOQ_CSV_URL.format(symbol=symbol_stooq)
 
             log(f"[{idx}/{len(constituents)}] fetching {symbol_stooq}")
             try:
-                raw_text = decode_bytes(
-                    fetch_bytes(
-                        url,
-                        timeout=args.timeout,
-                        retries=args.retries,
-                        sleep_seconds=args.sleep_seconds,
-                    )
-                )
-                price_rows = normalize_price_csv(
-                    raw_text,
+                price_rows = fetch_symbol_price_rows(
                     code=code,
                     ticker_tse=ticker_tse,
                     symbol_stooq=symbol_stooq,
                     fetched_at=fetched_at,
+                    timeout=args.timeout,
+                    retries=args.retries,
+                    sleep_seconds=args.sleep_seconds,
+                    rate_limit_cooldown_seconds=args.rate_limit_cooldown_seconds,
+                    rate_limit_max_retries=args.rate_limit_max_retries,
                 )
                 price_file = prices_root / f"{code}.csv"
                 changed = write_text_if_changed(price_file, csv_text(price_rows, PRICE_FIELDNAMES))
@@ -269,6 +332,8 @@ def main() -> int:
             except Exception as exc:  # noqa: BLE001
                 failures.append({"code": code, "symbol_stooq": symbol_stooq, "error": str(exc)})
                 log(f"ERROR {symbol_stooq}: {exc}")
+                if isinstance(exc, RuntimeError) and "Stooq rate limit persisted" in str(exc):
+                    raise
 
         if not file_map:
             raise RuntimeError("No price files were written")
