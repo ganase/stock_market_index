@@ -207,6 +207,7 @@ def build_drive_service_from_env():
     try:
         from google.oauth2 import service_account
         from googleapiclient.discovery import build
+        from googleapiclient.errors import HttpError
     except ImportError as exc:
         raise RuntimeError(
             "Google Drive publishing dependencies are missing. Install google-api-python-client and google-auth."
@@ -216,11 +217,11 @@ def build_drive_service_from_env():
         service_account_info,
         scopes=["https://www.googleapis.com/auth/drive.file"],
     )
-    return build("drive", "v3", credentials=credentials, cache_discovery=False), folder_id
+    return build("drive", "v3", credentials=credentials, cache_discovery=False), folder_id, HttpError
 
 
 def upload_files_to_google_drive(paths: list[Path]) -> None:
-    service, folder_id = build_drive_service_from_env()
+    service, folder_id, http_error_cls = build_drive_service_from_env()
     try:
         from googleapiclient.http import MediaFileUpload
     except ImportError as exc:
@@ -228,26 +229,58 @@ def upload_files_to_google_drive(paths: list[Path]) -> None:
             "Google Drive publishing dependencies are missing. Install google-api-python-client and google-auth."
         ) from exc
 
-    for path in paths:
-        filename = path.name
-        escaped_name = filename.replace("'", "\\'")
-        query = f"name = '{escaped_name}' and '{folder_id}' in parents and trashed = false"
-        response = (
-            service.files()
-            .list(q=query, spaces="drive", fields="files(id, name)", pageSize=10)
-            .execute()
-        )
-        existing_files = response.get("files", [])
-        media = MediaFileUpload(str(path), mimetype="text/csv", resumable=False)
+    try:
+        for path in paths:
+            filename = path.name
+            escaped_name = filename.replace("'", "\\'")
+            query = f"name = '{escaped_name}' and '{folder_id}' in parents and trashed = false"
+            response = (
+                service.files()
+                .list(
+                    q=query,
+                    spaces="drive",
+                    fields="files(id, name)",
+                    pageSize=10,
+                    includeItemsFromAllDrives=True,
+                    supportsAllDrives=True,
+                )
+                .execute()
+            )
+            existing_files = response.get("files", [])
+            media = MediaFileUpload(str(path), mimetype="text/csv", resumable=False)
 
-        if existing_files:
-            file_id = existing_files[0]["id"]
-            service.files().update(fileId=file_id, media_body=media).execute()
-            log(f"updated Google Drive file {filename} ({file_id})")
-        else:
-            metadata = {"name": filename, "parents": [folder_id]}
-            created = service.files().create(body=metadata, media_body=media, fields="id").execute()
-            log(f"created Google Drive file {filename} ({created.get('id', 'unknown')})")
+            if existing_files:
+                file_id = existing_files[0]["id"]
+                service.files().update(
+                    fileId=file_id,
+                    media_body=media,
+                    supportsAllDrives=True,
+                ).execute()
+                log(f"updated Google Drive file {filename} ({file_id})")
+            else:
+                metadata = {"name": filename, "parents": [folder_id]}
+                created = service.files().create(
+                    body=metadata,
+                    media_body=media,
+                    fields="id",
+                    supportsAllDrives=True,
+                ).execute()
+                log(f"created Google Drive file {filename} ({created.get('id', 'unknown')})")
+    except http_error_cls as exc:
+        message = str(exc)
+        if "Service Accounts do not have storage quota" in message or "storageQuotaExceeded" in message:
+            raise RuntimeError(
+                "Google Drive upload failed because service accounts do not have personal Drive storage quota. "
+                "Use a folder inside a shared drive and share that shared drive with the service account, "
+                "or switch to user OAuth / domain-wide delegation."
+            ) from exc
+        if "File not found:" in message or "notFound" in message:
+            raise RuntimeError(
+                "Google Drive upload failed because GOOGLE_DRIVE_FOLDER_ID was not found for this service account. "
+                "Check that the secret contains only the folder ID (not the full URL), that the folder still exists, "
+                "and that the shared drive or folder is shared with the service account email."
+            ) from exc
+        raise
 
 
 def main() -> int:

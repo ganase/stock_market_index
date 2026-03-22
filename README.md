@@ -106,7 +106,7 @@ python scripts/build_and_publish_tableau_feed.py --repo-root . --publish-destina
 - `GOOGLE_SERVICE_ACCOUNT_JSON_BASE64`
   - サービスアカウント JSON 全体を base64 エンコードした文字列
 
-`--publish-destination google-drive` を指定した場合だけ、これらの環境変数が必須です。未設定の場合は明確なエラーで終了します。`local` では不要です。既存ファイル名が同じ場合は Google Drive 上で更新し、重複作成を避けます。
+`--publish-destination google-drive` を指定した場合だけ、これらの環境変数が必須です。未設定の場合は明確なエラーで終了します。`local` では不要です。既存ファイル名が同じ場合は Google Drive 上で更新し、重複作成を避けます。サービスアカウントを使う場合は、保存先を個人の「マイドライブ」ではなく Shared Drive 配下のフォルダにし、その Shared Drive / フォルダをサービスアカウントへ共有してください。
 
 ### GitHub Actions での動作
 
