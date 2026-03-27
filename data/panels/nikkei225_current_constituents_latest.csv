@@ -1,226 +1,226 @@
 code,ticker_tse,company_name,sector,date,close,volume,price_file
-1332,1332.T,NISSUI CORP.,Fishery,2026-03-25,1370.50,1044800,data/prices/stooq/jp/1332.csv
-1605,1605.T,INPEX CORP.,Mining,2026-03-25,4444.00,12701000,data/prices/stooq/jp/1605.csv
-1721,1721.T,COMSYS HOLDINGS CORP.,Construction,2026-03-25,5201.00,520400,data/prices/stooq/jp/1721.csv
-1801,1801.T,TAISEI CORP.,Construction,2026-03-25,16605.00,622900,data/prices/stooq/jp/1801.csv
-1802,1802.T,OBAYASHI CORP.,Construction,2026-03-25,3913.00,2505300,data/prices/stooq/jp/1802.csv
-1803,1803.T,SHIMIZU CORP.,Construction,2026-03-25,2976.00,4313600,data/prices/stooq/jp/1803.csv
-1808,1808.T,HASEKO CORP.,Construction,2026-03-25,2979.50,1048400,data/prices/stooq/jp/1808.csv
-1812,1812.T,KAJIMA CORP.,Construction,2026-03-25,6132.00,2050700,data/prices/stooq/jp/1812.csv
-1925,1925.T,"DAIWA HOUSE IND. CO., LTD.",Construction,2026-03-25,5082.00,1754300,data/prices/stooq/jp/1925.csv
-1928,1928.T,"SEKISUI HOUSE, LTD.",Construction,2026-03-25,3520.00,1949600,data/prices/stooq/jp/1928.csv
-1963,1963.T,JGC HOLDINGS CORP.,Construction,2026-03-25,2222.00,2574000,data/prices/stooq/jp/1963.csv
-2002,2002.T,NISSHIN SEIFUN GROUP INC.,Foods,2026-03-25,2076.00,619300,data/prices/stooq/jp/2002.csv
-2269,2269.T,"MEIJI HOLDINGS CO., LTD.",Foods,2026-03-25,3950.00,886300,data/prices/stooq/jp/2269.csv
-2282,2282.T,NH FOODS LTD.,Foods,2026-03-25,6907.00,368000,data/prices/stooq/jp/2282.csv
-2413,2413.T,"M3, INC.",Services,2026-03-25,1591.50,2428900,data/prices/stooq/jp/2413.csv
-2432,2432.T,"DENA CO., LTD.",Services,2026-03-25,2521.00,1072200,data/prices/stooq/jp/2432.csv
-2501,2501.T,SAPPORO HOLDINGS LTD.,Foods,2026-03-25,1640.50,997400,data/prices/stooq/jp/2501.csv
-2502,2502.T,"ASAHI GROUP HOLDINGS, LTD.",Foods,2026-03-25,1564.50,7047100,data/prices/stooq/jp/2502.csv
-2503,2503.T,"KIRIN HOLDINGS CO., LTD.",Foods,2026-03-25,2468.50,3402500,data/prices/stooq/jp/2503.csv
-2768,2768.T,SOJITZ CORP.,Trading Companies,2026-03-25,6352.00,1392900,data/prices/stooq/jp/2768.csv
-2801,2801.T,KIKKOMAN CORP.,Foods,2026-03-25,1335.00,2898500,data/prices/stooq/jp/2801.csv
-2802,2802.T,"AJINOMOTO CO., INC.",Foods,2026-03-25,4481.00,3042000,data/prices/stooq/jp/2802.csv
-2871,2871.T,NICHIREI CORP.,Foods,2026-03-25,1957.00,1036800,data/prices/stooq/jp/2871.csv
-2914,2914.T,JAPAN TOBACCO INC.,Foods,2026-03-25,5950.00,4224000,data/prices/stooq/jp/2914.csv
-3086,3086.T,"J.FRONT RETAILING CO., LTD.",Retail,2026-03-25,2405.00,990700,data/prices/stooq/jp/3086.csv
-3092,3092.T,"ZOZO, INC.",Retail,2026-03-25,1111.00,2054000,data/prices/stooq/jp/3092.csv
-3099,3099.T,ISETAN MITSUKOSHI HOLDINGS LTD.,Retail,2026-03-25,2900.00,1686600,data/prices/stooq/jp/3099.csv
-3289,3289.T,TOKYU FUDOSAN HOLDINGS CORP.,Real Estate,2026-03-25,1377.00,2272000,data/prices/stooq/jp/3289.csv
-3382,3382.T,"SEVEN & I HOLDINGS CO., LTD.",Retail,2026-03-25,2080.00,5376500,data/prices/stooq/jp/3382.csv
-3401,3401.T,TEIJIN LTD.,Textiles & Apparel,2026-03-25,1597.50,966000,data/prices/stooq/jp/3401.csv
-3402,3402.T,"TORAY INDUSTRIES, INC.",Textiles & Apparel,2026-03-25,1111.00,5157000,data/prices/stooq/jp/3402.csv
-3405,3405.T,"KURARAY CO., LTD.",Chemicals,2026-03-25,1619.00,1768700,data/prices/stooq/jp/3405.csv
-3407,3407.T,ASAHI KASEI CORP.,Chemicals,2026-03-25,1557.50,3888900,data/prices/stooq/jp/3407.csv
-3436,3436.T,SUMCO CORP.,Nonferrous Metals,2026-03-25,1762.00,8803300,data/prices/stooq/jp/3436.csv
-3659,3659.T,"NEXON CO., LTD.",Services,2026-03-25,2944.00,2136400,data/prices/stooq/jp/3659.csv
-3697,3697.T,SHIFT INC.,Services,2026-03-25,638.40,4578700,data/prices/stooq/jp/3697.csv
-3861,3861.T,OJI HOLDINGS CORP.,Pulp & Paper,2026-03-25,872.70,4287900,data/prices/stooq/jp/3861.csv
-4004,4004.T,RESONAC HOLDINGS CORP.,Chemicals,2026-03-25,10775.00,2672700,data/prices/stooq/jp/4004.csv
-4005,4005.T,"SUMITOMO CHEMICAL CO., LTD.",Chemicals,2026-03-25,495.30,14477800,data/prices/stooq/jp/4005.csv
-4021,4021.T,NISSAN CHEMICAL CORP.,Chemicals,2026-03-25,6105.00,618300,data/prices/stooq/jp/4021.csv
-4042,4042.T,TOSOH CORP.,Chemicals,2026-03-25,2362.00,902600,data/prices/stooq/jp/4042.csv
-4043,4043.T,TOKUYAMA CORP.,Chemicals,2026-03-25,3786.00,611500,data/prices/stooq/jp/4043.csv
-4061,4061.T,"DENKA CO., LTD.",Chemicals,2026-03-25,3453.00,739000,data/prices/stooq/jp/4061.csv
-4062,4062.T,"IBIDEN CO., LTD.",Electric Machinery,2026-03-25,8478.00,5320700,data/prices/stooq/jp/4062.csv
-4063,4063.T,"SHIN-ETSU CHEMICAL CO., LTD.",Chemicals,2026-03-25,6294.00,8538900,data/prices/stooq/jp/4063.csv
-4151,4151.T,"KYOWA KIRIN CO., LTD.",Pharmaceuticals,2026-03-25,2441.00,1276500,data/prices/stooq/jp/4151.csv
-4183,4183.T,"MITSUI CHEMICALS, INC.",Chemicals,2026-03-25,1925.00,2914300,data/prices/stooq/jp/4183.csv
-4188,4188.T,MITSUBISHI CHEMICAL GROUP CORP.,Chemicals,2026-03-25,935.00,7333300,data/prices/stooq/jp/4188.csv
-4208,4208.T,UBE CORP.,Chemicals,2026-03-25,2514.00,693500,data/prices/stooq/jp/4208.csv
-4307,4307.T,"NOMURA RESEARCH INSTITUTE, LTD.",Services,2026-03-25,4246.00,3414100,data/prices/stooq/jp/4307.csv
-4324,4324.T,DENTSU GROUP INC.,Services,2026-03-25,2737.50,983400,data/prices/stooq/jp/4324.csv
-4385,4385.T,"MERCARI, INC.",Services,2026-03-25,3585.00,1339000,data/prices/stooq/jp/4385.csv
-4452,4452.T,KAO CORP.,Chemicals,2026-03-25,6059.00,1347400,data/prices/stooq/jp/4452.csv
-4502,4502.T,"TAKEDA PHARMACEUTICAL CO., LTD.",Pharmaceuticals,2026-03-25,5820.00,4521900,data/prices/stooq/jp/4502.csv
-4503,4503.T,ASTELLAS PHARMA INC.,Pharmaceuticals,2026-03-25,2538.50,5882800,data/prices/stooq/jp/4503.csv
-4506,4506.T,"SUMITOMO PHARMA CO., LTD.",Pharmaceuticals,2026-03-25,1992.50,7917400,data/prices/stooq/jp/4506.csv
-4507,4507.T,"SHIONOGI & CO., LTD.",Pharmaceuticals,2026-03-25,3441.00,2576600,data/prices/stooq/jp/4507.csv
-4519,4519.T,"CHUGAI PHARMACEUTICAL CO., LTD.",Pharmaceuticals,2026-03-25,8462.00,2197300,data/prices/stooq/jp/4519.csv
-4523,4523.T,"EISAI CO., LTD.",Pharmaceuticals,2026-03-25,4872.00,824300,data/prices/stooq/jp/4523.csv
-4543,4543.T,TERUMO CORP.,Precision Instruments,2026-03-25,2094.50,4978100,data/prices/stooq/jp/4543.csv
-4568,4568.T,"DAIICHI SANKYO CO., LTD.",Pharmaceuticals,2026-03-25,2974.00,6406300,data/prices/stooq/jp/4568.csv
-4578,4578.T,"OTSUKA HOLDINGS CO., LTD.",Pharmaceuticals,2026-03-25,10970.00,1284100,data/prices/stooq/jp/4578.csv
-4661,4661.T,"ORIENTAL LAND CO., LTD.",Services,2026-03-25,2681.00,3999400,data/prices/stooq/jp/4661.csv
-4689,4689.T,LY CORP.,Services,2026-03-25,392.30,18120400,data/prices/stooq/jp/4689.csv
-4704,4704.T,TREND MICRO INC.,Services,2026-03-25,5323.00,1063000,data/prices/stooq/jp/4704.csv
-4751,4751.T,"CYBERAGENT, INC.",Services,2026-03-25,1371.50,2806000,data/prices/stooq/jp/4751.csv
-4755,4755.T,"RAKUTEN GROUP, INC.",Services,2026-03-25,751.10,13771800,data/prices/stooq/jp/4755.csv
-4901,4901.T,FUJIFILM HOLDINGS CORP.,Chemicals,2026-03-25,2975.50,3816400,data/prices/stooq/jp/4901.csv
-4902,4902.T,"KONICA MINOLTA, INC.",Precision Instruments,2026-03-25,515.20,2327200,data/prices/stooq/jp/4902.csv
-4911,4911.T,"SHISEIDO CO., LTD.",Chemicals,2026-03-25,3046.00,2188700,data/prices/stooq/jp/4911.csv
-5019,5019.T,"IDEMITSU KOSAN CO., LTD.",Petroleum,2026-03-25,1488.50,4293500,data/prices/stooq/jp/5019.csv
-5020,5020.T,"ENEOS HOLDINGS, INC.",Petroleum,2026-03-25,1376.00,8116700,data/prices/stooq/jp/5020.csv
-5101,5101.T,"THE YOKOHAMA RUBBER CO., LTD.",Rubber,2026-03-25,6245.00,799200,data/prices/stooq/jp/5101.csv
-5108,5108.T,BRIDGESTONE CORP.,Rubber,2026-03-25,3342.00,3357600,data/prices/stooq/jp/5108.csv
-5201,5201.T,AGC INC.,Glass & Ceramics,2026-03-25,5652.00,1190600,data/prices/stooq/jp/5201.csv
-5214,5214.T,"NIPPON ELECTRIC GLASS CO., LTD.",Glass & Ceramics,2026-03-25,6386.00,412400,data/prices/stooq/jp/5214.csv
-5233,5233.T,TAIHEIYO CEMENT CORP.,Glass & Ceramics,2026-03-25,3572.00,782800,data/prices/stooq/jp/5233.csv
-5301,5301.T,"TOKAI CARBON CO., LTD.",Glass & Ceramics,2026-03-25,948.80,1141800,data/prices/stooq/jp/5301.csv
-5332,5332.T,TOTO LTD.,Glass & Ceramics,2026-03-25,5903.00,1302400,data/prices/stooq/jp/5332.csv
-5333,5333.T,"NGK INSULATORS, LTD.",Glass & Ceramics,2026-03-25,4162.00,1154300,data/prices/stooq/jp/5333.csv
-5401,5401.T,NIPPON STEEL CORP.,Steel,2026-03-25,594.60,25020100,data/prices/stooq/jp/5401.csv
-5406,5406.T,"KOBE STEEL, LTD.",Steel,2026-03-25,1957.00,4155200,data/prices/stooq/jp/5406.csv
-5411,5411.T,"JFE HOLDINGS, INC.",Steel,2026-03-25,1887.00,4747700,data/prices/stooq/jp/5411.csv
-5631,5631.T,"THE JAPAN STEEL WORKS, LTD.",Machinery,2026-03-25,9552.00,1613900,data/prices/stooq/jp/5631.csv
-5706,5706.T,"MITSUI KINZOKU CO., LTD.",Nonferrous Metals,2026-03-25,31630.00,1966200,data/prices/stooq/jp/5706.csv
-5711,5711.T,MITSUBISHI MATERIALS CORP.,Nonferrous Metals,2026-03-25,5185.00,1845400,data/prices/stooq/jp/5711.csv
-5713,5713.T,"SUMITOMO METAL MINING CO., LTD.",Nonferrous Metals,2026-03-25,9240.00,4209600,data/prices/stooq/jp/5713.csv
-5714,5714.T,"DOWA HOLDINGS CO., LTD.",Nonferrous Metals,2026-03-25,9394.00,464300,data/prices/stooq/jp/5714.csv
-5801,5801.T,"FURUKAWA ELECTRIC CO., LTD.",Nonferrous Metals,2026-03-25,31240.00,6757600,data/prices/stooq/jp/5801.csv
-5802,5802.T,"SUMITOMO ELECTRIC IND., LTD.",Nonferrous Metals,2026-03-25,10210.00,5844000,data/prices/stooq/jp/5802.csv
-5803,5803.T,FUJIKURA LTD.,Nonferrous Metals,2026-03-25,27475.00,9657200,data/prices/stooq/jp/5803.csv
-5831,5831.T,"SHIZUOKA FINANCIAL GROUP, INC.",Banking,2026-03-25,2672.50,1517900,data/prices/stooq/jp/5831.csv
-6098,6098.T,"RECRUIT HOLDINGS CO., LTD.",Services,2026-03-25,6416.00,4694500,data/prices/stooq/jp/6098.csv
-6103,6103.T,OKUMA CORP.,Machinery,2026-03-25,3810.00,420800,data/prices/stooq/jp/6103.csv
-6113,6113.T,"AMADA CO., LTD.",Machinery,2026-03-25,2320.00,1553300,data/prices/stooq/jp/6113.csv
-6146,6146.T,DISCO CORP.,Precision Instruments,2026-03-25,67980.00,2198600,data/prices/stooq/jp/6146.csv
-6178,6178.T,"JAPAN POST HOLDINGS CO., LTD.",Services,2026-03-25,1858.50,4654700,data/prices/stooq/jp/6178.csv
-6273,6273.T,SMC CORP.,Machinery,2026-03-25,65230.00,205400,data/prices/stooq/jp/6273.csv
-6301,6301.T,KOMATSU LTD.,Machinery,2026-03-25,6428.00,3504500,data/prices/stooq/jp/6301.csv
-6302,6302.T,"SUMITOMO HEAVY IND., LTD.",Machinery,2026-03-25,5179.00,811100,data/prices/stooq/jp/6302.csv
-6305,6305.T,"HITACHI CONST. MACH. CO., LTD.",Machinery,2026-03-25,5531.00,720100,data/prices/stooq/jp/6305.csv
-6326,6326.T,KUBOTA CORP.,Machinery,2026-03-25,2535.00,4941700,data/prices/stooq/jp/6326.csv
-6361,6361.T,EBARA CORP.,Machinery,2026-03-25,4848.00,3352000,data/prices/stooq/jp/6361.csv
-6367,6367.T,"DAIKIN INDUSTRIES, LTD.",Machinery,2026-03-25,19765.00,1166800,data/prices/stooq/jp/6367.csv
-6471,6471.T,NSK LTD.,Machinery,2026-03-25,1182.00,1599300,data/prices/stooq/jp/6471.csv
-6472,6472.T,NTN CORP.,Machinery,2026-03-25,338.40,2166300,data/prices/stooq/jp/6472.csv
-6473,6473.T,JTEKT CORP.,Machinery,2026-03-25,1741.00,1134500,data/prices/stooq/jp/6473.csv
-6479,6479.T,MINEBEA MITSUMI INC.,Electric Machinery,2026-03-25,2732.00,2497700,data/prices/stooq/jp/6479.csv
-6501,6501.T,"HITACHI, LTD.",Electric Machinery,2026-03-25,4881.00,13127600,data/prices/stooq/jp/6501.csv
-6503,6503.T,MITSUBISHI ELECTRIC CORP.,Electric Machinery,2026-03-25,5539.00,5387700,data/prices/stooq/jp/6503.csv
-6504,6504.T,"FUJI ELECTRIC CO., LTD.",Electric Machinery,2026-03-25,11395.00,791200,data/prices/stooq/jp/6504.csv
-6506,6506.T,YASKAWA ELECTRIC CORP.,Electric Machinery,2026-03-25,4510.00,2218400,data/prices/stooq/jp/6506.csv
-6526,6526.T,SOCIONEXT INC.,Electric Machinery,2026-03-25,1866.00,6120400,data/prices/stooq/jp/6526.csv
-6532,6532.T,"BAYCURRENT, INC.",Services,2026-03-25,4543.00,1164500,data/prices/stooq/jp/6532.csv
-6645,6645.T,OMRON CORP.,Electric Machinery,2026-03-25,4472.00,946500,data/prices/stooq/jp/6645.csv
-6674,6674.T,GS YUASA CORP.,Electric Machinery,2026-03-25,5211.00,710800,data/prices/stooq/jp/6674.csv
-6701,6701.T,NEC CORP.,Electric Machinery,2026-03-25,4042.00,5238900,data/prices/stooq/jp/6701.csv
-6702,6702.T,FUJITSU LTD.,Electric Machinery,2026-03-25,3351.00,8464100,data/prices/stooq/jp/6702.csv
-6723,6723.T,RENESAS ELECTRONICS CORP.,Electric Machinery,2026-03-25,2424.00,10076500,data/prices/stooq/jp/6723.csv
-6724,6724.T,SEIKO EPSON CORP.,Electric Machinery,2026-03-25,1985.00,1130600,data/prices/stooq/jp/6724.csv
-6752,6752.T,PANASONIC HOLDINGS CORP.,Electric Machinery,2026-03-25,2630.00,9213600,data/prices/stooq/jp/6752.csv
-6753,6753.T,SHARP CORP.,Electric Machinery,2026-03-25,580.50,2633200,data/prices/stooq/jp/6753.csv
-6758,6758.T,SONY GROUP CORP.,Electric Machinery,2026-03-25,3266.00,15502800,data/prices/stooq/jp/6758.csv
-6762,6762.T,TDK CORP.,Electric Machinery,2026-03-25,2089.50,7848500,data/prices/stooq/jp/6762.csv
-6770,6770.T,"ALPS ALPINE CO., LTD.",Electric Machinery,2026-03-25,2203.50,1154600,data/prices/stooq/jp/6770.csv
-6841,6841.T,YOKOGAWA ELECTRIC CORP.,Electric Machinery,2026-03-25,5158.00,1133700,data/prices/stooq/jp/6841.csv
-6857,6857.T,ADVANTEST CORP.,Electric Machinery,2026-03-25,23425.00,10638400,data/prices/stooq/jp/6857.csv
-6861,6861.T,KEYENCE CORP.,Electric Machinery,2026-03-25,58010.00,520900,data/prices/stooq/jp/6861.csv
-6902,6902.T,DENSO CORP.,Electric Machinery,2026-03-25,1921.50,6414000,data/prices/stooq/jp/6902.csv
-6920,6920.T,LASERTEC CORP.,Electric Machinery,2026-03-25,33410.00,3641600,data/prices/stooq/jp/6920.csv
-6952,6952.T,"CASIO COMPUTER CO., LTD.",Electric Machinery,2026-03-25,1449.50,1274100,data/prices/stooq/jp/6952.csv
-6954,6954.T,FANUC CORP.,Electric Machinery,2026-03-25,5914.00,3147600,data/prices/stooq/jp/6954.csv
-6963,6963.T,"ROHM CO., LTD.",Electric Machinery,2026-03-25,3337.00,5773600,data/prices/stooq/jp/6963.csv
-6971,6971.T,KYOCERA CORP.,Electric Machinery,2026-03-25,2454.50,3785500,data/prices/stooq/jp/6971.csv
-6976,6976.T,"TAIYO YUDEN CO., LTD.",Electric Machinery,2026-03-25,4108.00,1601200,data/prices/stooq/jp/6976.csv
-6981,6981.T,"MURATA MANUFACTURING CO., LTD.",Electric Machinery,2026-03-25,3660.00,7462600,data/prices/stooq/jp/6981.csv
-6988,6988.T,NITTO DENKO CORP.,Chemicals,2026-03-25,3210.00,2826800,data/prices/stooq/jp/6988.csv
-7004,7004.T,KANADEVIA CORP.,Machinery,2026-03-25,1023.00,874100,data/prices/stooq/jp/7004.csv
-7011,7011.T,"MITSUBISHI HEAVY IND., LTD.",Machinery,2026-03-25,4547.00,23369500,data/prices/stooq/jp/7011.csv
-7012,7012.T,"KAWASAKI HEAVY IND., LTD.",Shipbuilding,2026-03-25,15105.00,3881200,data/prices/stooq/jp/7012.csv
-7013,7013.T,IHI CORP.,Machinery,2026-03-25,3510.00,13676600,data/prices/stooq/jp/7013.csv
-7186,7186.T,"YOKOHAMA FINANCIAL GROUP, INC.",Banking,2026-03-25,1436.00,3741600,data/prices/stooq/jp/7186.csv
-7201,7201.T,"NISSAN MOTOR CO., LTD.",Automobiles & Auto parts,2026-03-25,348.40,24040900,data/prices/stooq/jp/7201.csv
-7202,7202.T,ISUZU MOTORS LTD.,Automobiles & Auto parts,2026-03-25,2359.50,2198400,data/prices/stooq/jp/7202.csv
-7203,7203.T,TOYOTA MOTOR CORP.,Automobiles & Auto parts,2026-03-25,3338.00,18556700,data/prices/stooq/jp/7203.csv
-7205,7205.T,"HINO MOTORS, LTD.",Automobiles & Auto parts,2026-03-25,416.00,3304400,data/prices/stooq/jp/7205.csv
-7211,7211.T,MITSUBISHI MOTORS CORP.,Automobiles & Auto parts,2026-03-25,344.40,9048800,data/prices/stooq/jp/7211.csv
-7261,7261.T,MAZDA MOTOR CORP.,Automobiles & Auto parts,2026-03-25,1116.00,6275100,data/prices/stooq/jp/7261.csv
-7267,7267.T,"HONDA MOTOR CO., LTD.",Automobiles & Auto parts,2026-03-25,1314.00,20453000,data/prices/stooq/jp/7267.csv
-7269,7269.T,SUZUKI MOTOR CORP.,Automobiles & Auto parts,2026-03-25,1943.00,6336900,data/prices/stooq/jp/7269.csv
-7270,7270.T,SUBARU CORP.,Automobiles & Auto parts,2026-03-25,2585.00,4096700,data/prices/stooq/jp/7270.csv
-7272,7272.T,"YAMAHA MOTOR CO., LTD.",Automobiles & Auto parts,2026-03-25,1110.00,4972700,data/prices/stooq/jp/7272.csv
-7453,7453.T,"RYOHIN KEIKAKU CO., LTD.",Retail,2026-03-25,3485.00,4136600,data/prices/stooq/jp/7453.csv
-7731,7731.T,NIKON CORP.,Precision Instruments,2026-03-25,1958.00,1022100,data/prices/stooq/jp/7731.csv
-7733,7733.T,OLYMPUS CORP.,Precision Instruments,2026-03-25,1435.50,6443100,data/prices/stooq/jp/7733.csv
-7735,7735.T,"SCREEN HOLDINGS CO., LTD.",Electric Machinery,2026-03-25,19745.00,1021200,data/prices/stooq/jp/7735.csv
-7741,7741.T,HOYA CORP.,Precision Instruments,2026-03-25,28420.00,991500,data/prices/stooq/jp/7741.csv
-7751,7751.T,CANON INC.,Electric Machinery,2026-03-25,4400.00,2628000,data/prices/stooq/jp/7751.csv
-7752,7752.T,"RICOH CO., LTD.",Electric Machinery,2026-03-25,1395.50,1897200,data/prices/stooq/jp/7752.csv
-7832,7832.T,BANDAI NAMCO HOLDINGS INC.,Other Manufacturing,2026-03-25,4080.00,2163900,data/prices/stooq/jp/7832.csv
-7911,7911.T,TOPPAN HOLDINGS INC.,Other Manufacturing,2026-03-25,4729.00,911100,data/prices/stooq/jp/7911.csv
-7912,7912.T,"DAI NIPPON PRINTING CO., LTD.",Other Manufacturing,2026-03-25,2936.50,1496700,data/prices/stooq/jp/7912.csv
-7951,7951.T,YAMAHA CORP.,Other Manufacturing,2026-03-25,1130.00,2095200,data/prices/stooq/jp/7951.csv
-7974,7974.T,"NINTENDO CO., LTD.",Services,2026-03-25,8980.00,11367400,data/prices/stooq/jp/7974.csv
-8001,8001.T,ITOCHU CORP.,Trading Companies,2026-03-25,2078.50,12985400,data/prices/stooq/jp/8001.csv
-8002,8002.T,MARUBENI CORP.,Trading Companies,2026-03-25,5610.00,5783700,data/prices/stooq/jp/8002.csv
-8015,8015.T,TOYOTA TSUSHO CORP.,Trading Companies,2026-03-25,6229.00,2173000,data/prices/stooq/jp/8015.csv
-8031,8031.T,"MITSUI & CO., LTD.",Trading Companies,2026-03-25,6253.00,7598100,data/prices/stooq/jp/8031.csv
-8035,8035.T,TOKYO ELECTRON LTD.,Electric Machinery,2026-03-25,40360.00,3091900,data/prices/stooq/jp/8035.csv
-8053,8053.T,SUMITOMO CORP.,Trading Companies,2026-03-25,5832.00,2930800,data/prices/stooq/jp/8053.csv
-8058,8058.T,MITSUBISHI CORP.,Trading Companies,2026-03-25,5556.00,9763900,data/prices/stooq/jp/8058.csv
-8233,8233.T,"TAKASHIMAYA CO., LTD.",Retail,2026-03-25,1877.50,2780000,data/prices/stooq/jp/8233.csv
-8252,8252.T,"MARUI GROUP CO., LTD.",Retail,2026-03-25,3106.00,883100,data/prices/stooq/jp/8252.csv
-8253,8253.T,"CREDIT SAISON CO., LTD.",Other Financial Services,2026-03-25,4244.00,601000,data/prices/stooq/jp/8253.csv
-8267,8267.T,"AEON CO., LTD.",Retail,2026-03-25,1936.50,5902200,data/prices/stooq/jp/8267.csv
-8304,8304.T,"AOZORA BANK, LTD.",Banking,2026-03-25,2605.50,760100,data/prices/stooq/jp/8304.csv
-8306,8306.T,"MITSUBISHI UFJ FINANCIAL GROUP, INC.",Banking,2026-03-25,2718.50,39608800,data/prices/stooq/jp/8306.csv
-8308,8308.T,"RESONA HOLDINGS, INC.",Banking,2026-03-25,1840.50,9652500,data/prices/stooq/jp/8308.csv
-8309,8309.T,"SUMITOMO MITSUI TRUST GROUP, INC.",Banking,2026-03-25,5109.00,2067000,data/prices/stooq/jp/8309.csv
-8316,8316.T,"SUMITOMO MITSUI FINANCIAL GROUP, INC.",Banking,2026-03-25,5311.00,16139400,data/prices/stooq/jp/8316.csv
-8331,8331.T,"THE CHIBA BANK, LTD.",Banking,2026-03-25,2099.50,2953100,data/prices/stooq/jp/8331.csv
-8354,8354.T,"FUKUOKA FINANCIAL GROUP, INC.",Banking,2026-03-25,6226.00,547700,data/prices/stooq/jp/8354.csv
-8411,8411.T,"MIZUHO FINANCIAL GROUP, INC.",Banking,2026-03-25,6421.00,10547400,data/prices/stooq/jp/8411.csv
-8591,8591.T,ORIX CORP.,Other Financial Services,2026-03-25,4807.00,2837600,data/prices/stooq/jp/8591.csv
-8601,8601.T,DAIWA SECURITIES GROUP INC.,Securities,2026-03-25,1560.50,5854600,data/prices/stooq/jp/8601.csv
-8604,8604.T,"NOMURA HOLDINGS, INC.",Securities,2026-03-25,1274.50,12925200,data/prices/stooq/jp/8604.csv
-8630,8630.T,"SOMPO HOLDINGS, INC.",Insurance,2026-03-25,6096.00,3034200,data/prices/stooq/jp/8630.csv
-8697,8697.T,"JAPAN EXCHANGE GROUP, INC.",Other Financial Services,2026-03-25,1881.50,4853200,data/prices/stooq/jp/8697.csv
-8725,8725.T,"MS&AD INSURANCE GROUP HOLDINGS, INC.",Insurance,2026-03-25,4214.00,5662000,data/prices/stooq/jp/8725.csv
-8750,8750.T,"DAI-ICHI LIFE HOLDINGS, INC.",Insurance,2026-03-25,1450.00,13432500,data/prices/stooq/jp/8750.csv
-8766,8766.T,"TOKIO MARINE HOLDINGS, INC.",Insurance,2026-03-25,7857.00,33295700,data/prices/stooq/jp/8766.csv
-8795,8795.T,"T&D HOLDINGS, INC.",Insurance,2026-03-25,3968.00,2812800,data/prices/stooq/jp/8795.csv
-8801,8801.T,"MITSUI FUDOSAN CO., LTD.",Real Estate,2026-03-25,1753.00,7635300,data/prices/stooq/jp/8801.csv
-8802,8802.T,"MITSUBISHI ESTATE CO., LTD.",Real Estate,2026-03-25,4559.00,3696500,data/prices/stooq/jp/8802.csv
-8804,8804.T,"TOKYO TATEMONO CO., LTD.",Real Estate,2026-03-25,3753.00,583700,data/prices/stooq/jp/8804.csv
-8830,8830.T,"SUMITOMO REALTY & DEVELOPMENT CO., LTD.",Real Estate,2026-03-25,4627.00,2701300,data/prices/stooq/jp/8830.csv
-9001,9001.T,"TOBU RAILWAY CO., LTD.",Railway & Bus,2026-03-25,2904.00,645000,data/prices/stooq/jp/9001.csv
-9005,9005.T,TOKYU CORP.,Railway & Bus,2026-03-25,1872.00,1996600,data/prices/stooq/jp/9005.csv
-9007,9007.T,"ODAKYU ELECTRIC RAILWAY CO., LTD.",Railway & Bus,2026-03-25,1644.00,1095100,data/prices/stooq/jp/9007.csv
-9008,9008.T,KEIO CORP.,Railway & Bus,2026-03-25,3914.00,347700,data/prices/stooq/jp/9008.csv
-9009,9009.T,"KEISEI ELECTRIC RAILWAY CO., LTD.",Railway & Bus,2026-03-25,1218.50,1572400,data/prices/stooq/jp/9009.csv
-9020,9020.T,EAST JAPAN RAILWAY CO.,Railway & Bus,2026-03-25,3635.00,3452500,data/prices/stooq/jp/9020.csv
-9021,9021.T,WEST JAPAN RAILWAY CO.,Railway & Bus,2026-03-25,3213.00,2135500,data/prices/stooq/jp/9021.csv
-9022,9022.T,"CENTRAL JAPAN RAILWAY CO., LTD.",Railway & Bus,2026-03-25,4274.00,2827600,data/prices/stooq/jp/9022.csv
-9064,9064.T,"YAMATO HOLDINGS CO., LTD.",Land Transport,2026-03-25,1764.00,2098500,data/prices/stooq/jp/9064.csv
-9101,9101.T,NIPPON YUSEN K.K.,Marine Transport,2026-03-25,5729.00,4216900,data/prices/stooq/jp/9101.csv
-9104,9104.T,"MITSUI O.S.K.LINES, LTD.",Marine Transport,2026-03-25,6532.00,4874700,data/prices/stooq/jp/9104.csv
-9107,9107.T,"KAWASAKI KISEN KAISHA, LTD.",Marine Transport,2026-03-25,2633.50,7160100,data/prices/stooq/jp/9107.csv
-9147,9147.T,"NIPPON EXPRESS HOLDINGS, INC.",Land Transport,2026-03-25,3579.00,1005200,data/prices/stooq/jp/9147.csv
-9201,9201.T,"JAPAN AIRLINES CO., LTD.",Air Transport,2026-03-25,2691.00,5054300,data/prices/stooq/jp/9201.csv
-9202,9202.T,ANA HOLDINGS INC.,Air Transport,2026-03-25,2980.00,2343800,data/prices/stooq/jp/9202.csv
-9432,9432.T,"NTT, INC.",Communications,2026-03-25,157.50,154975700,data/prices/stooq/jp/9432.csv
-9433,9433.T,KDDI CORP.,Communications,2026-03-25,2705.50,7745000,data/prices/stooq/jp/9433.csv
-9434,9434.T,SOFTBANK CORP.,Communications,2026-03-25,220.20,77199100,data/prices/stooq/jp/9434.csv
-9501,9501.T,"TOKYO ELECTRIC POWER COMPANY HOLDINGS, INC.",Electric Power,2026-03-25,636.60,56961500,data/prices/stooq/jp/9501.csv
-9502,9502.T,"CHUBU ELECTRIC POWER CO., INC.",Electric Power,2026-03-25,2617.00,3656400,data/prices/stooq/jp/9502.csv
-9503,9503.T,"THE KANSAI ELECTRIC POWER CO., INC.",Electric Power,2026-03-25,2624.00,4213100,data/prices/stooq/jp/9503.csv
-9531,9531.T,"TOKYO GAS CO., LTD.",Gas,2026-03-25,7544.00,1190700,data/prices/stooq/jp/9531.csv
-9532,9532.T,"OSAKA GAS CO., LTD.",Gas,2026-03-25,6404.00,1139800,data/prices/stooq/jp/9532.csv
-9602,9602.T,"TOHO CO., LTD.",Services,2026-03-25,1611.00,1863900,data/prices/stooq/jp/9602.csv
-9735,9735.T,"SECOM CO., LTD.",Services,2026-03-25,5907.00,1027000,data/prices/stooq/jp/9735.csv
-9766,9766.T,KONAMI GROUP CORP.,Services,2026-03-25,19505.00,480700,data/prices/stooq/jp/9766.csv
-9843,9843.T,"NITORI HOLDINGS CO., LTD.",Retail,2026-03-25,2679.50,3087900,data/prices/stooq/jp/9843.csv
-9983,9983.T,"FAST RETAILING CO., LTD.",Retail,2026-03-25,62400.00,913800,data/prices/stooq/jp/9983.csv
-9984,9984.T,SOFTBANK GROUP CORP.,Communications,2026-03-25,3809.00,56598700,data/prices/stooq/jp/9984.csv
+1332,1332.T,NISSUI CORP.,Fishery,2026-03-26,1381.00,967300,data/prices/stooq/jp/1332.csv
+1605,1605.T,INPEX CORP.,Mining,2026-03-26,4687.00,9407200,data/prices/stooq/jp/1605.csv
+1721,1721.T,COMSYS HOLDINGS CORP.,Construction,2026-03-26,5128.00,389000,data/prices/stooq/jp/1721.csv
+1801,1801.T,TAISEI CORP.,Construction,2026-03-26,16640.00,514100,data/prices/stooq/jp/1801.csv
+1802,1802.T,OBAYASHI CORP.,Construction,2026-03-26,3919.00,1738800,data/prices/stooq/jp/1802.csv
+1803,1803.T,SHIMIZU CORP.,Construction,2026-03-26,2929.50,2844500,data/prices/stooq/jp/1803.csv
+1808,1808.T,HASEKO CORP.,Construction,2026-03-26,3003.00,986800,data/prices/stooq/jp/1808.csv
+1812,1812.T,KAJIMA CORP.,Construction,2026-03-26,6076.00,1439100,data/prices/stooq/jp/1812.csv
+1925,1925.T,"DAIWA HOUSE IND. CO., LTD.",Construction,2026-03-26,5055.00,1934000,data/prices/stooq/jp/1925.csv
+1928,1928.T,"SEKISUI HOUSE, LTD.",Construction,2026-03-26,3544.00,1980100,data/prices/stooq/jp/1928.csv
+1963,1963.T,JGC HOLDINGS CORP.,Construction,2026-03-26,2170.00,1951000,data/prices/stooq/jp/1963.csv
+2002,2002.T,NISSHIN SEIFUN GROUP INC.,Foods,2026-03-26,2099.00,691300,data/prices/stooq/jp/2002.csv
+2269,2269.T,"MEIJI HOLDINGS CO., LTD.",Foods,2026-03-26,3915.00,1203200,data/prices/stooq/jp/2269.csv
+2282,2282.T,NH FOODS LTD.,Foods,2026-03-26,6939.00,369400,data/prices/stooq/jp/2282.csv
+2413,2413.T,"M3, INC.",Services,2026-03-26,1588.00,2423100,data/prices/stooq/jp/2413.csv
+2432,2432.T,"DENA CO., LTD.",Services,2026-03-26,2497.00,1266200,data/prices/stooq/jp/2432.csv
+2501,2501.T,SAPPORO HOLDINGS LTD.,Foods,2026-03-26,1651.50,1091400,data/prices/stooq/jp/2501.csv
+2502,2502.T,"ASAHI GROUP HOLDINGS, LTD.",Foods,2026-03-26,1553.50,8073800,data/prices/stooq/jp/2502.csv
+2503,2503.T,"KIRIN HOLDINGS CO., LTD.",Foods,2026-03-26,2471.50,2303000,data/prices/stooq/jp/2503.csv
+2768,2768.T,SOJITZ CORP.,Trading Companies,2026-03-26,6366.00,1258100,data/prices/stooq/jp/2768.csv
+2801,2801.T,KIKKOMAN CORP.,Foods,2026-03-26,1414.00,6132300,data/prices/stooq/jp/2801.csv
+2802,2802.T,"AJINOMOTO CO., INC.",Foods,2026-03-26,4514.00,2661000,data/prices/stooq/jp/2802.csv
+2871,2871.T,NICHIREI CORP.,Foods,2026-03-26,1945.50,1125600,data/prices/stooq/jp/2871.csv
+2914,2914.T,JAPAN TOBACCO INC.,Foods,2026-03-26,5983.00,3133600,data/prices/stooq/jp/2914.csv
+3086,3086.T,"J.FRONT RETAILING CO., LTD.",Retail,2026-03-26,2427.00,729100,data/prices/stooq/jp/3086.csv
+3092,3092.T,"ZOZO, INC.",Retail,2026-03-26,1103.50,2392400,data/prices/stooq/jp/3092.csv
+3099,3099.T,ISETAN MITSUKOSHI HOLDINGS LTD.,Retail,2026-03-26,2936.50,1621500,data/prices/stooq/jp/3099.csv
+3289,3289.T,TOKYU FUDOSAN HOLDINGS CORP.,Real Estate,2026-03-26,1382.00,2294600,data/prices/stooq/jp/3289.csv
+3382,3382.T,"SEVEN & I HOLDINGS CO., LTD.",Retail,2026-03-26,2100.50,4818900,data/prices/stooq/jp/3382.csv
+3401,3401.T,TEIJIN LTD.,Textiles & Apparel,2026-03-26,1604.00,1146300,data/prices/stooq/jp/3401.csv
+3402,3402.T,"TORAY INDUSTRIES, INC.",Textiles & Apparel,2026-03-26,1119.00,6112300,data/prices/stooq/jp/3402.csv
+3405,3405.T,"KURARAY CO., LTD.",Chemicals,2026-03-26,1619.50,1319800,data/prices/stooq/jp/3405.csv
+3407,3407.T,ASAHI KASEI CORP.,Chemicals,2026-03-26,1560.00,3495300,data/prices/stooq/jp/3407.csv
+3436,3436.T,SUMCO CORP.,Nonferrous Metals,2026-03-26,1851.50,11258100,data/prices/stooq/jp/3436.csv
+3659,3659.T,"NEXON CO., LTD.",Services,2026-03-26,2919.00,1495900,data/prices/stooq/jp/3659.csv
+3697,3697.T,SHIFT INC.,Services,2026-03-26,620.40,4288900,data/prices/stooq/jp/3697.csv
+3861,3861.T,OJI HOLDINGS CORP.,Pulp & Paper,2026-03-26,861.10,5635200,data/prices/stooq/jp/3861.csv
+4004,4004.T,RESONAC HOLDINGS CORP.,Chemicals,2026-03-26,11010.00,2405000,data/prices/stooq/jp/4004.csv
+4005,4005.T,"SUMITOMO CHEMICAL CO., LTD.",Chemicals,2026-03-26,507.40,15641500,data/prices/stooq/jp/4005.csv
+4021,4021.T,NISSAN CHEMICAL CORP.,Chemicals,2026-03-26,6167.00,540300,data/prices/stooq/jp/4021.csv
+4042,4042.T,TOSOH CORP.,Chemicals,2026-03-26,2367.50,803900,data/prices/stooq/jp/4042.csv
+4043,4043.T,TOKUYAMA CORP.,Chemicals,2026-03-26,3808.00,698700,data/prices/stooq/jp/4043.csv
+4061,4061.T,"DENKA CO., LTD.",Chemicals,2026-03-26,3526.00,1173700,data/prices/stooq/jp/4061.csv
+4062,4062.T,"IBIDEN CO., LTD.",Electric Machinery,2026-03-26,8460.00,4688700,data/prices/stooq/jp/4062.csv
+4063,4063.T,"SHIN-ETSU CHEMICAL CO., LTD.",Chemicals,2026-03-26,6291.00,7075700,data/prices/stooq/jp/4063.csv
+4151,4151.T,"KYOWA KIRIN CO., LTD.",Pharmaceuticals,2026-03-26,2463.50,1034400,data/prices/stooq/jp/4151.csv
+4183,4183.T,"MITSUI CHEMICALS, INC.",Chemicals,2026-03-26,1936.50,2340000,data/prices/stooq/jp/4183.csv
+4188,4188.T,MITSUBISHI CHEMICAL GROUP CORP.,Chemicals,2026-03-26,932.50,6347400,data/prices/stooq/jp/4188.csv
+4208,4208.T,UBE CORP.,Chemicals,2026-03-26,2518.00,713000,data/prices/stooq/jp/4208.csv
+4307,4307.T,"NOMURA RESEARCH INSTITUTE, LTD.",Services,2026-03-26,4221.00,1810300,data/prices/stooq/jp/4307.csv
+4324,4324.T,DENTSU GROUP INC.,Services,2026-03-26,2703.00,1111900,data/prices/stooq/jp/4324.csv
+4385,4385.T,"MERCARI, INC.",Services,2026-03-26,3582.00,1155900,data/prices/stooq/jp/4385.csv
+4452,4452.T,KAO CORP.,Chemicals,2026-03-26,6030.00,1901500,data/prices/stooq/jp/4452.csv
+4502,4502.T,"TAKEDA PHARMACEUTICAL CO., LTD.",Pharmaceuticals,2026-03-26,5789.00,3651500,data/prices/stooq/jp/4502.csv
+4503,4503.T,ASTELLAS PHARMA INC.,Pharmaceuticals,2026-03-26,2535.00,5184900,data/prices/stooq/jp/4503.csv
+4506,4506.T,"SUMITOMO PHARMA CO., LTD.",Pharmaceuticals,2026-03-26,2031.00,10039400,data/prices/stooq/jp/4506.csv
+4507,4507.T,"SHIONOGI & CO., LTD.",Pharmaceuticals,2026-03-26,3457.00,2459800,data/prices/stooq/jp/4507.csv
+4519,4519.T,"CHUGAI PHARMACEUTICAL CO., LTD.",Pharmaceuticals,2026-03-26,8451.00,1570300,data/prices/stooq/jp/4519.csv
+4523,4523.T,"EISAI CO., LTD.",Pharmaceuticals,2026-03-26,4922.00,974000,data/prices/stooq/jp/4523.csv
+4543,4543.T,TERUMO CORP.,Precision Instruments,2026-03-26,2094.00,4886100,data/prices/stooq/jp/4543.csv
+4568,4568.T,"DAIICHI SANKYO CO., LTD.",Pharmaceuticals,2026-03-26,2874.50,10791200,data/prices/stooq/jp/4568.csv
+4578,4578.T,"OTSUKA HOLDINGS CO., LTD.",Pharmaceuticals,2026-03-26,11090.00,1023400,data/prices/stooq/jp/4578.csv
+4661,4661.T,"ORIENTAL LAND CO., LTD.",Services,2026-03-26,2694.50,3722400,data/prices/stooq/jp/4661.csv
+4689,4689.T,LY CORP.,Services,2026-03-26,385.60,18994300,data/prices/stooq/jp/4689.csv
+4704,4704.T,TREND MICRO INC.,Services,2026-03-26,5217.00,908300,data/prices/stooq/jp/4704.csv
+4751,4751.T,"CYBERAGENT, INC.",Services,2026-03-26,1370.50,2161500,data/prices/stooq/jp/4751.csv
+4755,4755.T,"RAKUTEN GROUP, INC.",Services,2026-03-26,744.30,10807100,data/prices/stooq/jp/4755.csv
+4901,4901.T,FUJIFILM HOLDINGS CORP.,Chemicals,2026-03-26,3001.00,3033400,data/prices/stooq/jp/4901.csv
+4902,4902.T,"KONICA MINOLTA, INC.",Precision Instruments,2026-03-26,515.40,2826700,data/prices/stooq/jp/4902.csv
+4911,4911.T,"SHISEIDO CO., LTD.",Chemicals,2026-03-26,3025.00,1589800,data/prices/stooq/jp/4911.csv
+5019,5019.T,"IDEMITSU KOSAN CO., LTD.",Petroleum,2026-03-26,1528.00,3660300,data/prices/stooq/jp/5019.csv
+5020,5020.T,"ENEOS HOLDINGS, INC.",Petroleum,2026-03-26,1402.00,7465600,data/prices/stooq/jp/5020.csv
+5101,5101.T,"THE YOKOHAMA RUBBER CO., LTD.",Rubber,2026-03-26,6264.00,702900,data/prices/stooq/jp/5101.csv
+5108,5108.T,BRIDGESTONE CORP.,Rubber,2026-03-26,3323.00,3108900,data/prices/stooq/jp/5108.csv
+5201,5201.T,AGC INC.,Glass & Ceramics,2026-03-26,5627.00,841900,data/prices/stooq/jp/5201.csv
+5214,5214.T,"NIPPON ELECTRIC GLASS CO., LTD.",Glass & Ceramics,2026-03-26,6441.00,371200,data/prices/stooq/jp/5214.csv
+5233,5233.T,TAIHEIYO CEMENT CORP.,Glass & Ceramics,2026-03-26,3552.00,776800,data/prices/stooq/jp/5233.csv
+5301,5301.T,"TOKAI CARBON CO., LTD.",Glass & Ceramics,2026-03-26,949.50,1284600,data/prices/stooq/jp/5301.csv
+5332,5332.T,TOTO LTD.,Glass & Ceramics,2026-03-26,5569.00,1286300,data/prices/stooq/jp/5332.csv
+5333,5333.T,"NGK INSULATORS, LTD.",Glass & Ceramics,2026-03-26,4155.00,1035500,data/prices/stooq/jp/5333.csv
+5401,5401.T,NIPPON STEEL CORP.,Steel,2026-03-26,596.00,24843000,data/prices/stooq/jp/5401.csv
+5406,5406.T,"KOBE STEEL, LTD.",Steel,2026-03-26,1936.50,3010200,data/prices/stooq/jp/5406.csv
+5411,5411.T,"JFE HOLDINGS, INC.",Steel,2026-03-26,1883.00,3841300,data/prices/stooq/jp/5411.csv
+5631,5631.T,"THE JAPAN STEEL WORKS, LTD.",Machinery,2026-03-26,9483.00,877800,data/prices/stooq/jp/5631.csv
+5706,5706.T,"MITSUI KINZOKU CO., LTD.",Nonferrous Metals,2026-03-26,30890.00,1518300,data/prices/stooq/jp/5706.csv
+5711,5711.T,MITSUBISHI MATERIALS CORP.,Nonferrous Metals,2026-03-26,5144.00,1386800,data/prices/stooq/jp/5711.csv
+5713,5713.T,"SUMITOMO METAL MINING CO., LTD.",Nonferrous Metals,2026-03-26,9337.00,3207800,data/prices/stooq/jp/5713.csv
+5714,5714.T,"DOWA HOLDINGS CO., LTD.",Nonferrous Metals,2026-03-26,9466.00,505900,data/prices/stooq/jp/5714.csv
+5801,5801.T,"FURUKAWA ELECTRIC CO., LTD.",Nonferrous Metals,2026-03-26,32210.00,9578100,data/prices/stooq/jp/5801.csv
+5802,5802.T,"SUMITOMO ELECTRIC IND., LTD.",Nonferrous Metals,2026-03-26,9885.00,7329400,data/prices/stooq/jp/5802.csv
+5803,5803.T,FUJIKURA LTD.,Nonferrous Metals,2026-03-26,28115.00,12925700,data/prices/stooq/jp/5803.csv
+5831,5831.T,"SHIZUOKA FINANCIAL GROUP, INC.",Banking,2026-03-26,2652.00,1578900,data/prices/stooq/jp/5831.csv
+6098,6098.T,"RECRUIT HOLDINGS CO., LTD.",Services,2026-03-26,6399.00,4099700,data/prices/stooq/jp/6098.csv
+6103,6103.T,OKUMA CORP.,Machinery,2026-03-26,3780.00,249900,data/prices/stooq/jp/6103.csv
+6113,6113.T,"AMADA CO., LTD.",Machinery,2026-03-26,2314.50,924900,data/prices/stooq/jp/6113.csv
+6146,6146.T,DISCO CORP.,Precision Instruments,2026-03-26,67490.00,1649000,data/prices/stooq/jp/6146.csv
+6178,6178.T,"JAPAN POST HOLDINGS CO., LTD.",Services,2026-03-26,1841.50,3956300,data/prices/stooq/jp/6178.csv
+6273,6273.T,SMC CORP.,Machinery,2026-03-26,64730.00,186800,data/prices/stooq/jp/6273.csv
+6301,6301.T,KOMATSU LTD.,Machinery,2026-03-26,6434.00,3508400,data/prices/stooq/jp/6301.csv
+6302,6302.T,"SUMITOMO HEAVY IND., LTD.",Machinery,2026-03-26,5086.00,576900,data/prices/stooq/jp/6302.csv
+6305,6305.T,"HITACHI CONST. MACH. CO., LTD.",Machinery,2026-03-26,5519.00,730800,data/prices/stooq/jp/6305.csv
+6326,6326.T,KUBOTA CORP.,Machinery,2026-03-26,2578.50,4211800,data/prices/stooq/jp/6326.csv
+6361,6361.T,EBARA CORP.,Machinery,2026-03-26,4642.00,2384300,data/prices/stooq/jp/6361.csv
+6367,6367.T,"DAIKIN INDUSTRIES, LTD.",Machinery,2026-03-26,20510.00,1539300,data/prices/stooq/jp/6367.csv
+6471,6471.T,NSK LTD.,Machinery,2026-03-26,1170.00,1868900,data/prices/stooq/jp/6471.csv
+6472,6472.T,NTN CORP.,Machinery,2026-03-26,338.80,2735000,data/prices/stooq/jp/6472.csv
+6473,6473.T,JTEKT CORP.,Machinery,2026-03-26,1725.50,960700,data/prices/stooq/jp/6473.csv
+6479,6479.T,MINEBEA MITSUMI INC.,Electric Machinery,2026-03-26,2746.50,1818900,data/prices/stooq/jp/6479.csv
+6501,6501.T,"HITACHI, LTD.",Electric Machinery,2026-03-26,4779.00,12080000,data/prices/stooq/jp/6501.csv
+6503,6503.T,MITSUBISHI ELECTRIC CORP.,Electric Machinery,2026-03-26,5456.00,4881300,data/prices/stooq/jp/6503.csv
+6504,6504.T,"FUJI ELECTRIC CO., LTD.",Electric Machinery,2026-03-26,11440.00,579700,data/prices/stooq/jp/6504.csv
+6506,6506.T,YASKAWA ELECTRIC CORP.,Electric Machinery,2026-03-26,4416.00,2513800,data/prices/stooq/jp/6506.csv
+6526,6526.T,SOCIONEXT INC.,Electric Machinery,2026-03-26,1987.00,17225200,data/prices/stooq/jp/6526.csv
+6532,6532.T,"BAYCURRENT, INC.",Services,2026-03-26,4523.00,971500,data/prices/stooq/jp/6532.csv
+6645,6645.T,OMRON CORP.,Electric Machinery,2026-03-26,4506.00,979100,data/prices/stooq/jp/6645.csv
+6674,6674.T,GS YUASA CORP.,Electric Machinery,2026-03-26,5181.00,668100,data/prices/stooq/jp/6674.csv
+6701,6701.T,NEC CORP.,Electric Machinery,2026-03-26,3940.00,6720200,data/prices/stooq/jp/6701.csv
+6702,6702.T,FUJITSU LTD.,Electric Machinery,2026-03-26,3261.00,6634100,data/prices/stooq/jp/6702.csv
+6723,6723.T,RENESAS ELECTRONICS CORP.,Electric Machinery,2026-03-26,2389.50,7960400,data/prices/stooq/jp/6723.csv
+6724,6724.T,SEIKO EPSON CORP.,Electric Machinery,2026-03-26,1985.50,1035000,data/prices/stooq/jp/6724.csv
+6752,6752.T,PANASONIC HOLDINGS CORP.,Electric Machinery,2026-03-26,2694.00,9350500,data/prices/stooq/jp/6752.csv
+6753,6753.T,SHARP CORP.,Electric Machinery,2026-03-26,587.60,2860600,data/prices/stooq/jp/6753.csv
+6758,6758.T,SONY GROUP CORP.,Electric Machinery,2026-03-26,3218.00,13791300,data/prices/stooq/jp/6758.csv
+6762,6762.T,TDK CORP.,Electric Machinery,2026-03-26,2096.50,6885500,data/prices/stooq/jp/6762.csv
+6770,6770.T,"ALPS ALPINE CO., LTD.",Electric Machinery,2026-03-26,2239.50,1220400,data/prices/stooq/jp/6770.csv
+6841,6841.T,YOKOGAWA ELECTRIC CORP.,Electric Machinery,2026-03-26,5164.00,856100,data/prices/stooq/jp/6841.csv
+6857,6857.T,ADVANTEST CORP.,Electric Machinery,2026-03-26,22965.00,7478300,data/prices/stooq/jp/6857.csv
+6861,6861.T,KEYENCE CORP.,Electric Machinery,2026-03-26,57730.00,489800,data/prices/stooq/jp/6861.csv
+6902,6902.T,DENSO CORP.,Electric Machinery,2026-03-26,1944.50,5534100,data/prices/stooq/jp/6902.csv
+6920,6920.T,LASERTEC CORP.,Electric Machinery,2026-03-26,34570.00,4028500,data/prices/stooq/jp/6920.csv
+6952,6952.T,"CASIO COMPUTER CO., LTD.",Electric Machinery,2026-03-26,1462.00,2572300,data/prices/stooq/jp/6952.csv
+6954,6954.T,FANUC CORP.,Electric Machinery,2026-03-26,5840.00,3409400,data/prices/stooq/jp/6954.csv
+6963,6963.T,"ROHM CO., LTD.",Electric Machinery,2026-03-26,3376.00,3571300,data/prices/stooq/jp/6963.csv
+6971,6971.T,KYOCERA CORP.,Electric Machinery,2026-03-26,2437.00,4346500,data/prices/stooq/jp/6971.csv
+6976,6976.T,"TAIYO YUDEN CO., LTD.",Electric Machinery,2026-03-26,4160.00,1460700,data/prices/stooq/jp/6976.csv
+6981,6981.T,"MURATA MANUFACTURING CO., LTD.",Electric Machinery,2026-03-26,3723.00,6618400,data/prices/stooq/jp/6981.csv
+6988,6988.T,NITTO DENKO CORP.,Chemicals,2026-03-26,3182.00,2771800,data/prices/stooq/jp/6988.csv
+7004,7004.T,KANADEVIA CORP.,Machinery,2026-03-26,1022.00,659900,data/prices/stooq/jp/7004.csv
+7011,7011.T,"MITSUBISHI HEAVY IND., LTD.",Machinery,2026-03-26,4511.00,16565600,data/prices/stooq/jp/7011.csv
+7012,7012.T,"KAWASAKI HEAVY IND., LTD.",Shipbuilding,2026-03-26,15305.00,3133100,data/prices/stooq/jp/7012.csv
+7013,7013.T,IHI CORP.,Machinery,2026-03-26,3487.00,11214000,data/prices/stooq/jp/7013.csv
+7186,7186.T,"YOKOHAMA FINANCIAL GROUP, INC.",Banking,2026-03-26,1430.50,4091000,data/prices/stooq/jp/7186.csv
+7201,7201.T,"NISSAN MOTOR CO., LTD.",Automobiles & Auto parts,2026-03-26,352.00,26306900,data/prices/stooq/jp/7201.csv
+7202,7202.T,ISUZU MOTORS LTD.,Automobiles & Auto parts,2026-03-26,2304.50,3490200,data/prices/stooq/jp/7202.csv
+7203,7203.T,TOYOTA MOTOR CORP.,Automobiles & Auto parts,2026-03-26,3388.00,16107200,data/prices/stooq/jp/7203.csv
+7205,7205.T,"HINO MOTORS, LTD.",Automobiles & Auto parts,2026-03-26,409.00,4144800,data/prices/stooq/jp/7205.csv
+7211,7211.T,MITSUBISHI MOTORS CORP.,Automobiles & Auto parts,2026-03-26,341.20,7546000,data/prices/stooq/jp/7211.csv
+7261,7261.T,MAZDA MOTOR CORP.,Automobiles & Auto parts,2026-03-26,1117.00,4174700,data/prices/stooq/jp/7261.csv
+7267,7267.T,"HONDA MOTOR CO., LTD.",Automobiles & Auto parts,2026-03-26,1320.00,16891900,data/prices/stooq/jp/7267.csv
+7269,7269.T,SUZUKI MOTOR CORP.,Automobiles & Auto parts,2026-03-26,1945.50,4828200,data/prices/stooq/jp/7269.csv
+7270,7270.T,SUBARU CORP.,Automobiles & Auto parts,2026-03-26,2592.00,3262700,data/prices/stooq/jp/7270.csv
+7272,7272.T,"YAMAHA MOTOR CO., LTD.",Automobiles & Auto parts,2026-03-26,1121.00,4368400,data/prices/stooq/jp/7272.csv
+7453,7453.T,"RYOHIN KEIKAKU CO., LTD.",Retail,2026-03-26,3407.00,2696200,data/prices/stooq/jp/7453.csv
+7731,7731.T,NIKON CORP.,Precision Instruments,2026-03-26,1956.00,1050300,data/prices/stooq/jp/7731.csv
+7733,7733.T,OLYMPUS CORP.,Precision Instruments,2026-03-26,1432.00,5693600,data/prices/stooq/jp/7733.csv
+7735,7735.T,"SCREEN HOLDINGS CO., LTD.",Electric Machinery,2026-03-26,19555.00,751300,data/prices/stooq/jp/7735.csv
+7741,7741.T,HOYA CORP.,Precision Instruments,2026-03-26,28090.00,888900,data/prices/stooq/jp/7741.csv
+7751,7751.T,CANON INC.,Electric Machinery,2026-03-26,4398.00,2192400,data/prices/stooq/jp/7751.csv
+7752,7752.T,"RICOH CO., LTD.",Electric Machinery,2026-03-26,1350.00,5331100,data/prices/stooq/jp/7752.csv
+7832,7832.T,BANDAI NAMCO HOLDINGS INC.,Other Manufacturing,2026-03-26,4010.00,2187600,data/prices/stooq/jp/7832.csv
+7911,7911.T,TOPPAN HOLDINGS INC.,Other Manufacturing,2026-03-26,4641.00,1020800,data/prices/stooq/jp/7911.csv
+7912,7912.T,"DAI NIPPON PRINTING CO., LTD.",Other Manufacturing,2026-03-26,2886.50,1482400,data/prices/stooq/jp/7912.csv
+7951,7951.T,YAMAHA CORP.,Other Manufacturing,2026-03-26,1131.50,1649500,data/prices/stooq/jp/7951.csv
+7974,7974.T,"NINTENDO CO., LTD.",Services,2026-03-26,8990.00,7076900,data/prices/stooq/jp/7974.csv
+8001,8001.T,ITOCHU CORP.,Trading Companies,2026-03-26,2062.00,12552400,data/prices/stooq/jp/8001.csv
+8002,8002.T,MARUBENI CORP.,Trading Companies,2026-03-26,5661.00,3373800,data/prices/stooq/jp/8002.csv
+8015,8015.T,TOYOTA TSUSHO CORP.,Trading Companies,2026-03-26,6215.00,1913300,data/prices/stooq/jp/8015.csv
+8031,8031.T,"MITSUI & CO., LTD.",Trading Companies,2026-03-26,6390.00,6481200,data/prices/stooq/jp/8031.csv
+8035,8035.T,TOKYO ELECTRON LTD.,Electric Machinery,2026-03-26,40530.00,2747200,data/prices/stooq/jp/8035.csv
+8053,8053.T,SUMITOMO CORP.,Trading Companies,2026-03-26,5887.00,2263600,data/prices/stooq/jp/8053.csv
+8058,8058.T,MITSUBISHI CORP.,Trading Companies,2026-03-26,5655.00,8646300,data/prices/stooq/jp/8058.csv
+8233,8233.T,"TAKASHIMAYA CO., LTD.",Retail,2026-03-26,1878.00,1666900,data/prices/stooq/jp/8233.csv
+8252,8252.T,"MARUI GROUP CO., LTD.",Retail,2026-03-26,3117.00,612400,data/prices/stooq/jp/8252.csv
+8253,8253.T,"CREDIT SAISON CO., LTD.",Other Financial Services,2026-03-26,4205.00,581500,data/prices/stooq/jp/8253.csv
+8267,8267.T,"AEON CO., LTD.",Retail,2026-03-26,1902.50,7045300,data/prices/stooq/jp/8267.csv
+8304,8304.T,"AOZORA BANK, LTD.",Banking,2026-03-26,2619.50,846600,data/prices/stooq/jp/8304.csv
+8306,8306.T,"MITSUBISHI UFJ FINANCIAL GROUP, INC.",Banking,2026-03-26,2700.50,27929800,data/prices/stooq/jp/8306.csv
+8308,8308.T,"RESONA HOLDINGS, INC.",Banking,2026-03-26,1818.50,5436900,data/prices/stooq/jp/8308.csv
+8309,8309.T,"SUMITOMO MITSUI TRUST GROUP, INC.",Banking,2026-03-26,5098.00,1766700,data/prices/stooq/jp/8309.csv
+8316,8316.T,"SUMITOMO MITSUI FINANCIAL GROUP, INC.",Banking,2026-03-26,5246.00,12876200,data/prices/stooq/jp/8316.csv
+8331,8331.T,"THE CHIBA BANK, LTD.",Banking,2026-03-26,2050.50,3563600,data/prices/stooq/jp/8331.csv
+8354,8354.T,"FUKUOKA FINANCIAL GROUP, INC.",Banking,2026-03-26,6213.00,453300,data/prices/stooq/jp/8354.csv
+8411,8411.T,"MIZUHO FINANCIAL GROUP, INC.",Banking,2026-03-26,6368.00,6873400,data/prices/stooq/jp/8411.csv
+8591,8591.T,ORIX CORP.,Other Financial Services,2026-03-26,4768.00,2412600,data/prices/stooq/jp/8591.csv
+8601,8601.T,DAIWA SECURITIES GROUP INC.,Securities,2026-03-26,1565.50,5219900,data/prices/stooq/jp/8601.csv
+8604,8604.T,"NOMURA HOLDINGS, INC.",Securities,2026-03-26,1257.50,10707500,data/prices/stooq/jp/8604.csv
+8630,8630.T,"SOMPO HOLDINGS, INC.",Insurance,2026-03-26,6075.00,2791200,data/prices/stooq/jp/8630.csv
+8697,8697.T,"JAPAN EXCHANGE GROUP, INC.",Other Financial Services,2026-03-26,1896.50,4621200,data/prices/stooq/jp/8697.csv
+8725,8725.T,"MS&AD INSURANCE GROUP HOLDINGS, INC.",Insurance,2026-03-26,4151.00,4191800,data/prices/stooq/jp/8725.csv
+8750,8750.T,"DAI-ICHI LIFE HOLDINGS, INC.",Insurance,2026-03-26,1438.00,8449300,data/prices/stooq/jp/8750.csv
+8766,8766.T,"TOKIO MARINE HOLDINGS, INC.",Insurance,2026-03-26,7587.00,22606800,data/prices/stooq/jp/8766.csv
+8795,8795.T,"T&D HOLDINGS, INC.",Insurance,2026-03-26,3944.00,2441300,data/prices/stooq/jp/8795.csv
+8801,8801.T,"MITSUI FUDOSAN CO., LTD.",Real Estate,2026-03-26,1733.00,7658700,data/prices/stooq/jp/8801.csv
+8802,8802.T,"MITSUBISHI ESTATE CO., LTD.",Real Estate,2026-03-26,4528.00,2885900,data/prices/stooq/jp/8802.csv
+8804,8804.T,"TOKYO TATEMONO CO., LTD.",Real Estate,2026-03-26,3771.00,652100,data/prices/stooq/jp/8804.csv
+8830,8830.T,"SUMITOMO REALTY & DEVELOPMENT CO., LTD.",Real Estate,2026-03-26,4587.00,2256800,data/prices/stooq/jp/8830.csv
+9001,9001.T,"TOBU RAILWAY CO., LTD.",Railway & Bus,2026-03-26,2914.00,889800,data/prices/stooq/jp/9001.csv
+9005,9005.T,TOKYU CORP.,Railway & Bus,2026-03-26,1884.00,2239600,data/prices/stooq/jp/9005.csv
+9007,9007.T,"ODAKYU ELECTRIC RAILWAY CO., LTD.",Railway & Bus,2026-03-26,1658.00,1342200,data/prices/stooq/jp/9007.csv
+9008,9008.T,KEIO CORP.,Railway & Bus,2026-03-26,3938.00,317100,data/prices/stooq/jp/9008.csv
+9009,9009.T,"KEISEI ELECTRIC RAILWAY CO., LTD.",Railway & Bus,2026-03-26,1235.00,2676700,data/prices/stooq/jp/9009.csv
+9020,9020.T,EAST JAPAN RAILWAY CO.,Railway & Bus,2026-03-26,3647.00,2274700,data/prices/stooq/jp/9020.csv
+9021,9021.T,WEST JAPAN RAILWAY CO.,Railway & Bus,2026-03-26,3202.00,3013700,data/prices/stooq/jp/9021.csv
+9022,9022.T,"CENTRAL JAPAN RAILWAY CO., LTD.",Railway & Bus,2026-03-26,4233.00,1714600,data/prices/stooq/jp/9022.csv
+9064,9064.T,"YAMATO HOLDINGS CO., LTD.",Land Transport,2026-03-26,1767.50,999200,data/prices/stooq/jp/9064.csv
+9101,9101.T,NIPPON YUSEN K.K.,Marine Transport,2026-03-26,5785.00,3604900,data/prices/stooq/jp/9101.csv
+9104,9104.T,"MITSUI O.S.K.LINES, LTD.",Marine Transport,2026-03-26,6862.00,6889100,data/prices/stooq/jp/9104.csv
+9107,9107.T,"KAWASAKI KISEN KAISHA, LTD.",Marine Transport,2026-03-26,2693.50,5846000,data/prices/stooq/jp/9107.csv
+9147,9147.T,"NIPPON EXPRESS HOLDINGS, INC.",Land Transport,2026-03-26,3576.00,809500,data/prices/stooq/jp/9147.csv
+9201,9201.T,"JAPAN AIRLINES CO., LTD.",Air Transport,2026-03-26,2676.00,2602900,data/prices/stooq/jp/9201.csv
+9202,9202.T,ANA HOLDINGS INC.,Air Transport,2026-03-26,2988.00,1763800,data/prices/stooq/jp/9202.csv
+9432,9432.T,"NTT, INC.",Communications,2026-03-26,158.80,162521000,data/prices/stooq/jp/9432.csv
+9433,9433.T,KDDI CORP.,Communications,2026-03-26,2710.00,6379500,data/prices/stooq/jp/9433.csv
+9434,9434.T,SOFTBANK CORP.,Communications,2026-03-26,219.10,68940000,data/prices/stooq/jp/9434.csv
+9501,9501.T,"TOKYO ELECTRIC POWER COMPANY HOLDINGS, INC.",Electric Power,2026-03-26,623.40,45160800,data/prices/stooq/jp/9501.csv
+9502,9502.T,"CHUBU ELECTRIC POWER CO., INC.",Electric Power,2026-03-26,2596.00,1794900,data/prices/stooq/jp/9502.csv
+9503,9503.T,"THE KANSAI ELECTRIC POWER CO., INC.",Electric Power,2026-03-26,2630.00,2282600,data/prices/stooq/jp/9503.csv
+9531,9531.T,"TOKYO GAS CO., LTD.",Gas,2026-03-26,7636.00,1001700,data/prices/stooq/jp/9531.csv
+9532,9532.T,"OSAKA GAS CO., LTD.",Gas,2026-03-26,6383.00,689200,data/prices/stooq/jp/9532.csv
+9602,9602.T,"TOHO CO., LTD.",Services,2026-03-26,1628.50,2176600,data/prices/stooq/jp/9602.csv
+9735,9735.T,"SECOM CO., LTD.",Services,2026-03-26,5909.00,906400,data/prices/stooq/jp/9735.csv
+9766,9766.T,KONAMI GROUP CORP.,Services,2026-03-26,19320.00,393000,data/prices/stooq/jp/9766.csv
+9843,9843.T,"NITORI HOLDINGS CO., LTD.",Retail,2026-03-26,2627.50,2841700,data/prices/stooq/jp/9843.csv
+9983,9983.T,"FAST RETAILING CO., LTD.",Retail,2026-03-26,61870.00,896100,data/prices/stooq/jp/9983.csv
+9984,9984.T,SOFTBANK GROUP CORP.,Communications,2026-03-26,3822.00,70316200,data/prices/stooq/jp/9984.csv
