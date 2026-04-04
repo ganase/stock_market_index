@@ -303,8 +303,14 @@ def main() -> int:
             constituents = constituents[: args.max_symbols]
 
         changed_files = 0
+        reused_existing_files = 0
         failures: list[dict[str, str]] = []
         file_map: dict[str, Path] = {}
+        existing_file_map = {
+            path.stem: path
+            for path in prices_root.glob("*.csv")
+            if path.is_file()
+        }
 
         for idx, row in enumerate(constituents, start=1):
             code = row["code"]
@@ -332,8 +338,11 @@ def main() -> int:
             except Exception as exc:  # noqa: BLE001
                 failures.append({"code": code, "symbol_stooq": symbol_stooq, "error": str(exc)})
                 log(f"ERROR {symbol_stooq}: {exc}")
-                if isinstance(exc, RuntimeError) and "Stooq rate limit persisted" in str(exc):
-                    raise
+                fallback_file = existing_file_map.get(code)
+                if fallback_file and fallback_file.exists():
+                    file_map[code] = fallback_file
+                    reused_existing_files += 1
+                    log(f"fallback to existing file for {symbol_stooq}: {fallback_file.name}")
 
         if not file_map:
             raise RuntimeError("No price files were written")
@@ -365,6 +374,7 @@ def main() -> int:
             "symbols_failed": len(failures),
             "success_ratio": round(success_ratio, 6),
             "price_files_changed": changed_files,
+            "price_files_reused": reused_existing_files,
             "latest_panel_changed": latest_panel_changed,
             "close_wide_changed": close_wide_changed,
             "latest_panel_output": str(latest_panel_path.relative_to(repo_root)),

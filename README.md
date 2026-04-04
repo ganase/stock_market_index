@@ -267,6 +267,12 @@ GitHub の **Settings → Secrets and variables → Actions** で次を登録し
 - `Exceeded the daily hits limit`
   - Stooq 側の取得制限。時間を空けて再実行する
 
+### Stooq 一時障害時の現在の挙動
+
+- `scripts/update_nikkei225_prices.py` は、取得に失敗した銘柄でも既存の `data/prices/stooq/jp/<code>.csv` があればそのファイルを再利用して処理を継続します
+- そのため一時的な取得失敗で毎日の workflow 全体が止まりにくくなっています
+- ただし再利用は「過去の値を維持する」挙動なので、失敗が長期化していないかは Actions のログや status JSON を定期確認してください
+
 
 ## 今後やりたいことメモ
 
@@ -294,3 +300,65 @@ GitHub の **Settings → Secrets and variables → Actions** で次を登録し
   - 個人利用を前提に、将来的には株価予測の精度向上へつなげる
 - **公開可能な比較データの切り出し**
   - 個別売買アイデアではなく、公開されている index データ同士の比較や可視化は将来的に公開する可能性がある
+
+
+## 過去の日経225 index 履歴を bootstrap する方法
+
+`scripts/bootstrap_nikkei225_index_history.py` は、**一度だけ**、または必要なときだけ使うための補助スクリプトです。毎日の定期実行には組み込まず、手元で historical seed を `data/indexes/nikkei225/daily.csv` に流し込む用途を想定しています。
+
+### 何をするスクリプトか
+
+- 手元で用意した historical CSV / TSV を読む
+- `data/indexes/nikkei225/daily.csv` に日付キーで merge する
+- 既存の日次更新ロジックはそのまま維持する
+
+### どこで実行するか
+
+おすすめは **ローカル環境** です。理由は次の通りです。
+
+- 一度きりの seed 処理であること
+- input file を手元で確認しながら実行したいこと
+- 実行後に `git diff` で差分確認したいこと
+
+GitHub Actions に組み込む必要はありません。
+
+### いつ実行するか
+
+- 初回に過去履歴を入れたいときに **単発で1回** 実行
+- 別の歴史データ source で不足分を補いたいときに、必要なら再実行
+
+### 実行例
+
+```bash
+python scripts/bootstrap_nikkei225_index_history.py \
+  --repo-root . \
+  --input-path /path/to/nikkei225_history.csv
+```
+
+既存行も historical file の値で強制的に上書きしたい場合だけ、次を追加します。
+
+```bash
+--overwrite-existing
+```
+
+### input file の想定列
+
+最低限必要なのは次です。
+
+- `Date`
+- `Close`
+
+あれば取り込みます。
+
+- `Open`
+- `High`
+- `Low`
+
+ヘッダ名は英語 / 日本語の基本的な表記を吸収します。
+
+### 実行後にやること
+
+1. `git diff data/indexes/nikkei225/daily.csv` で差分確認
+2. 日付先頭が期待どおり過去まで伸びたか確認
+3. 問題なければ commit
+4. 以後は既存の `scripts/update_nikkei225_index.py` と定期 workflow が日々更新を継続
