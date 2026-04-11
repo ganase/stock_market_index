@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Fetch daily prices for fixed Nikkei 225 constituents from Stooq.
+"""Fetch daily prices for fixed Nikkei 225 constituents.
 
 Inputs:
 - data/constituents/nikkei225/current.csv
@@ -14,10 +14,11 @@ from __future__ import annotations
 
 import argparse
 import csv
+import json
 import sys
 import time
 from collections import defaultdict
-from datetime import datetime
+from datetime import datetime, timezone
 from pathlib import Path
 
 from common_market_io import (
@@ -32,6 +33,10 @@ from common_market_io import (
 )
 
 STOOQ_CSV_URL = "https://stooq.com/q/d/l/?s={symbol}&i=d"
+YAHOO_CHART_URL = (
+    "https://query1.finance.yahoo.com/v8/finance/chart/{symbol}"
+    "?period1=0&period2={period2}&interval=1d&events=history&includeAdjustedClose=false"
+)
 STOOQ_DAILY_HITS_LIMIT_MESSAGE = "Exceeded the daily hits limit"
 
 PRICE_FIELDNAMES = [
@@ -64,8 +69,12 @@ class StooqRateLimitError(RuntimeError):
     """Raised when Stooq returns a daily hits limit response."""
 
 
+def parse_unix_timestamp(value: int) -> str:
+    return datetime.fromtimestamp(value, tz=timezone.utc).strftime("%Y-%m-%d")
+
+
 def parse_args() -> argparse.Namespace:
-    parser = argparse.ArgumentParser(description="Fetch Nikkei 225 constituent prices from Stooq")
+    parser = argparse.ArgumentParser(description="Fetch Nikkei 225 constituent prices")
     parser.add_argument("--repo-root", default=".", help="Repository root")
     parser.add_argument("--constituents-csv", default="data/constituents/nikkei225/current.csv")
     parser.add_argument("--timeout", type=int, default=30)
@@ -73,6 +82,12 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--sleep-seconds", type=float, default=0.15)
     parser.add_argument("--max-symbols", type=int, default=0, help="For testing; 0 means all")
     parser.add_argument("--min-success-ratio", type=float, default=0.90)
+    parser.add_argument(
+        "--price-provider",
+        choices=("yahoo", "stooq"),
+        default="yahoo",
+        help="Upstream price provider. yahoo is default; stooq is legacy fallback.",
+    )
     parser.add_argument(
         "--rate-limit-cooldown-seconds",
         type=float,
@@ -178,6 +193,60 @@ def normalize_price_csv(
     return rows
 
 
+def normalize_yahoo_chart_json(
+    raw_text: str,
+    *,
+    code: str,
+    ticker_tse: str,
+    symbol_stooq: str,
+    fetched_at: str,
+) -> list[dict[str, str]]:
+    payload = json.loads(raw_text)
+    result = payload.get("chart", {}).get("result")
+    if not result:
+        raise ValueError(f"Yahoo chart payload is empty for {ticker_tse}")
+    chart = result[0]
+    timestamps = chart.get("timestamp") or []
+    quote_rows = chart.get("indicators", {}).get("quote") or []
+    if not timestamps or not quote_rows:
+        raise ValueError(f"Yahoo chart payload missing timestamps/quote for {ticker_tse}")
+
+    quote = quote_rows[0]
+    opens = quote.get("open") or []
+    highs = quote.get("high") or []
+    lows = quote.get("low") or []
+    closes = quote.get("close") or []
+    volumes = quote.get("volume") or []
+    period2 = int(datetime.now(tz=timezone.utc).timestamp())
+
+    rows: list[dict[str, str]] = []
+    for idx, ts in enumerate(timestamps):
+        close_val = closes[idx] if idx < len(closes) else None
+        if close_val is None:
+            continue
+        rows.append(
+            {
+                "code": code,
+                "ticker_tse": ticker_tse,
+                "symbol_stooq": symbol_stooq,
+                "date": parse_unix_timestamp(int(ts)),
+                "open": parse_number(str(opens[idx])) if idx < len(opens) and opens[idx] is not None else "",
+                "high": parse_number(str(highs[idx])) if idx < len(highs) and highs[idx] is not None else "",
+                "low": parse_number(str(lows[idx])) if idx < len(lows) and lows[idx] is not None else "",
+                "close": parse_number(str(close_val)),
+                "volume": parse_volume(str(volumes[idx])) if idx < len(volumes) and volumes[idx] is not None else "",
+                "source": YAHOO_CHART_URL.format(symbol=ticker_tse, period2=period2),
+                "fetched_at": fetched_at,
+            }
+        )
+
+    if not rows:
+        raise ValueError(f"No price rows parsed from Yahoo payload for {ticker_tse}")
+
+    rows.sort(key=lambda r: r["date"])
+    return rows
+
+
 def fetch_symbol_price_rows(
     *,
     code: str,
@@ -189,7 +258,27 @@ def fetch_symbol_price_rows(
     sleep_seconds: float,
     rate_limit_cooldown_seconds: float,
     rate_limit_max_retries: int,
+    price_provider: str,
 ) -> list[dict[str, str]]:
+    if price_provider == "yahoo":
+        period2 = int(datetime.now(tz=timezone.utc).timestamp())
+        url = YAHOO_CHART_URL.format(symbol=ticker_tse, period2=period2)
+        raw_text = decode_bytes(
+            fetch_bytes(
+                url,
+                timeout=timeout,
+                retries=retries,
+                sleep_seconds=sleep_seconds,
+            )
+        )
+        return normalize_yahoo_chart_json(
+            raw_text,
+            code=code,
+            ticker_tse=ticker_tse,
+            symbol_stooq=symbol_stooq,
+            fetched_at=fetched_at,
+        )
+
     url = STOOQ_CSV_URL.format(symbol=symbol_stooq)
     attempts = rate_limit_max_retries + 1
 
@@ -329,6 +418,7 @@ def main() -> int:
                     sleep_seconds=args.sleep_seconds,
                     rate_limit_cooldown_seconds=args.rate_limit_cooldown_seconds,
                     rate_limit_max_retries=args.rate_limit_max_retries,
+                    price_provider=args.price_provider,
                 )
                 price_file = prices_root / f"{code}.csv"
                 changed = write_text_if_changed(price_file, csv_text(price_rows, PRICE_FIELDNAMES))
@@ -380,7 +470,8 @@ def main() -> int:
             "latest_panel_output": str(latest_panel_path.relative_to(repo_root)),
             "close_wide_output": str(close_wide_path.relative_to(repo_root)),
             "failures": failures[:20],
-            "source_template": STOOQ_CSV_URL,
+            "source_template": YAHOO_CHART_URL if args.price_provider == "yahoo" else STOOQ_CSV_URL,
+            "price_provider": args.price_provider,
         }
         write_status(status_path, status)
         log(
@@ -396,7 +487,8 @@ def main() -> int:
                 "ok": False,
                 "fetched_at": fetched_at,
                 "error": str(exc),
-                "source_template": STOOQ_CSV_URL,
+                "source_template": YAHOO_CHART_URL if args.price_provider == "yahoo" else STOOQ_CSV_URL,
+                "price_provider": args.price_provider,
             },
         )
         log(f"ERROR: {exc}")
