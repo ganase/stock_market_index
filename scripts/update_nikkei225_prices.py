@@ -86,7 +86,7 @@ def parse_args() -> argparse.Namespace:
         "--price-provider",
         choices=("yahoo", "stooq"),
         default="yahoo",
-        help="Upstream price provider. yahoo is default; stooq is legacy fallback.",
+        help="Primary upstream provider. yahoo falls back to stooq per symbol on fetch/parse failure.",
     )
     parser.add_argument(
         "--rate-limit-cooldown-seconds",
@@ -261,23 +261,29 @@ def fetch_symbol_price_rows(
     price_provider: str,
 ) -> list[dict[str, str]]:
     if price_provider == "yahoo":
-        period2 = int(datetime.now(tz=timezone.utc).timestamp())
-        url = YAHOO_CHART_URL.format(symbol=ticker_tse, period2=period2)
-        raw_text = decode_bytes(
-            fetch_bytes(
-                url,
-                timeout=timeout,
-                retries=retries,
-                sleep_seconds=sleep_seconds,
+        try:
+            period2 = int(datetime.now(tz=timezone.utc).timestamp())
+            url = YAHOO_CHART_URL.format(symbol=ticker_tse, period2=period2)
+            raw_text = decode_bytes(
+                fetch_bytes(
+                    url,
+                    timeout=timeout,
+                    retries=retries,
+                    sleep_seconds=sleep_seconds,
+                )
             )
-        )
-        return normalize_yahoo_chart_json(
-            raw_text,
-            code=code,
-            ticker_tse=ticker_tse,
-            symbol_stooq=symbol_stooq,
-            fetched_at=fetched_at,
-        )
+            return normalize_yahoo_chart_json(
+                raw_text,
+                code=code,
+                ticker_tse=ticker_tse,
+                symbol_stooq=symbol_stooq,
+                fetched_at=fetched_at,
+            )
+        except Exception as yahoo_exc:  # noqa: BLE001
+            log(
+                f"Yahoo fetch failed for {ticker_tse} ({yahoo_exc}); "
+                f"falling back to Stooq symbol {symbol_stooq}"
+            )
 
     url = STOOQ_CSV_URL.format(symbol=symbol_stooq)
     attempts = rate_limit_max_retries + 1
@@ -427,12 +433,16 @@ def main() -> int:
                 file_map[code] = price_file
             except Exception as exc:  # noqa: BLE001
                 failures.append({"code": code, "symbol_stooq": symbol_stooq, "error": str(exc)})
-                log(f"ERROR {symbol_stooq}: {exc}")
                 fallback_file = existing_file_map.get(code)
                 if fallback_file and fallback_file.exists():
                     file_map[code] = fallback_file
                     reused_existing_files += 1
-                    log(f"fallback to existing file for {symbol_stooq}: {fallback_file.name}")
+                    log(
+                        f"WARN {symbol_stooq}: fetch failed ({exc}); "
+                        f"fallback to existing file {fallback_file.name}"
+                    )
+                else:
+                    log(f"ERROR {symbol_stooq}: {exc}")
 
         if not file_map:
             raise RuntimeError("No price files were written")
