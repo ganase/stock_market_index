@@ -446,6 +446,11 @@ def main() -> int:
 
         if not file_map:
             raise RuntimeError("No price files were written")
+        if len(failures) == len(constituents):
+            raise RuntimeError(
+                "All symbol fetches failed; upstream source is likely blocked or now requires authentication. "
+                "No fresh price rows were downloaded."
+            )
 
         success_ratio = len(file_map) / len(constituents)
         if success_ratio < args.min_success_ratio:
