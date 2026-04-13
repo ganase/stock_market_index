@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Fetch daily prices for fixed Nikkei 225 constituents from Stooq.
+"""Fetch daily prices for fixed Nikkei 225 constituents.
 
 Inputs:
 - data/constituents/nikkei225/current.csv
@@ -14,9 +14,11 @@ from __future__ import annotations
 
 import argparse
 import csv
+import json
 import sys
+import time
 from collections import defaultdict
-from datetime import datetime
+from datetime import datetime, timezone
 from pathlib import Path
 
 from common_market_io import (
@@ -31,6 +33,11 @@ from common_market_io import (
 )
 
 STOOQ_CSV_URL = "https://stooq.com/q/d/l/?s={symbol}&i=d"
+YAHOO_CHART_URL = (
+    "https://query1.finance.yahoo.com/v8/finance/chart/{symbol}"
+    "?period1=0&period2={period2}&interval=1d&events=history&includeAdjustedClose=false"
+)
+STOOQ_DAILY_HITS_LIMIT_MESSAGE = "Exceeded the daily hits limit"
 
 PRICE_FIELDNAMES = [
     "code",
@@ -58,8 +65,16 @@ LATEST_PANEL_FIELDNAMES = [
 ]
 
 
+class StooqRateLimitError(RuntimeError):
+    """Raised when Stooq returns a daily hits limit response."""
+
+
+def parse_unix_timestamp(value: int) -> str:
+    return datetime.fromtimestamp(value, tz=timezone.utc).strftime("%Y-%m-%d")
+
+
 def parse_args() -> argparse.Namespace:
-    parser = argparse.ArgumentParser(description="Fetch Nikkei 225 constituent prices from Stooq")
+    parser = argparse.ArgumentParser(description="Fetch Nikkei 225 constituent prices")
     parser.add_argument("--repo-root", default=".", help="Repository root")
     parser.add_argument("--constituents-csv", default="data/constituents/nikkei225/current.csv")
     parser.add_argument("--timeout", type=int, default=30)
@@ -67,6 +82,24 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--sleep-seconds", type=float, default=0.15)
     parser.add_argument("--max-symbols", type=int, default=0, help="For testing; 0 means all")
     parser.add_argument("--min-success-ratio", type=float, default=0.90)
+    parser.add_argument(
+        "--price-provider",
+        choices=("yahoo", "stooq"),
+        default="yahoo",
+        help="Primary upstream provider. yahoo falls back to stooq per symbol on fetch/parse failure.",
+    )
+    parser.add_argument(
+        "--rate-limit-cooldown-seconds",
+        type=float,
+        default=120.0,
+        help="How long to wait before retrying after a Stooq daily hits limit response",
+    )
+    parser.add_argument(
+        "--rate-limit-max-retries",
+        type=int,
+        default=1,
+        help="How many times to retry a symbol after Stooq returns a daily hits limit response",
+    )
     return parser.parse_args()
 
 
@@ -115,6 +148,9 @@ def normalize_price_csv(
     symbol_stooq: str,
     fetched_at: str,
 ) -> list[dict[str, str]]:
+    if STOOQ_DAILY_HITS_LIMIT_MESSAGE in raw_text:
+        raise StooqRateLimitError(f"Stooq rate limit hit for {symbol_stooq}: {STOOQ_DAILY_HITS_LIMIT_MESSAGE}")
+
     reader = csv.DictReader(raw_text.splitlines())
     required = {"Date", "Open", "High", "Low", "Close", "Volume"}
     if not reader.fieldnames or not required.issubset(set(reader.fieldnames)):
@@ -155,6 +191,133 @@ def normalize_price_csv(
 
     rows.sort(key=lambda r: r["date"])
     return rows
+
+
+def normalize_yahoo_chart_json(
+    raw_text: str,
+    *,
+    code: str,
+    ticker_tse: str,
+    symbol_stooq: str,
+    fetched_at: str,
+) -> list[dict[str, str]]:
+    payload = json.loads(raw_text)
+    result = payload.get("chart", {}).get("result")
+    if not result:
+        raise ValueError(f"Yahoo chart payload is empty for {ticker_tse}")
+    chart = result[0]
+    timestamps = chart.get("timestamp") or []
+    quote_rows = chart.get("indicators", {}).get("quote") or []
+    if not timestamps or not quote_rows:
+        raise ValueError(f"Yahoo chart payload missing timestamps/quote for {ticker_tse}")
+
+    quote = quote_rows[0]
+    opens = quote.get("open") or []
+    highs = quote.get("high") or []
+    lows = quote.get("low") or []
+    closes = quote.get("close") or []
+    volumes = quote.get("volume") or []
+    period2 = int(datetime.now(tz=timezone.utc).timestamp())
+
+    rows: list[dict[str, str]] = []
+    for idx, ts in enumerate(timestamps):
+        close_val = closes[idx] if idx < len(closes) else None
+        if close_val is None:
+            continue
+        rows.append(
+            {
+                "code": code,
+                "ticker_tse": ticker_tse,
+                "symbol_stooq": symbol_stooq,
+                "date": parse_unix_timestamp(int(ts)),
+                "open": parse_number(str(opens[idx])) if idx < len(opens) and opens[idx] is not None else "",
+                "high": parse_number(str(highs[idx])) if idx < len(highs) and highs[idx] is not None else "",
+                "low": parse_number(str(lows[idx])) if idx < len(lows) and lows[idx] is not None else "",
+                "close": parse_number(str(close_val)),
+                "volume": parse_volume(str(volumes[idx])) if idx < len(volumes) and volumes[idx] is not None else "",
+                "source": YAHOO_CHART_URL.format(symbol=ticker_tse, period2=period2),
+                "fetched_at": fetched_at,
+            }
+        )
+
+    if not rows:
+        raise ValueError(f"No price rows parsed from Yahoo payload for {ticker_tse}")
+
+    rows.sort(key=lambda r: r["date"])
+    return rows
+
+
+def fetch_symbol_price_rows(
+    *,
+    code: str,
+    ticker_tse: str,
+    symbol_stooq: str,
+    fetched_at: str,
+    timeout: int,
+    retries: int,
+    sleep_seconds: float,
+    rate_limit_cooldown_seconds: float,
+    rate_limit_max_retries: int,
+    price_provider: str,
+) -> list[dict[str, str]]:
+    if price_provider == "yahoo":
+        try:
+            period2 = int(datetime.now(tz=timezone.utc).timestamp())
+            url = YAHOO_CHART_URL.format(symbol=ticker_tse, period2=period2)
+            raw_text = decode_bytes(
+                fetch_bytes(
+                    url,
+                    timeout=timeout,
+                    retries=retries,
+                    sleep_seconds=sleep_seconds,
+                )
+            )
+            return normalize_yahoo_chart_json(
+                raw_text,
+                code=code,
+                ticker_tse=ticker_tse,
+                symbol_stooq=symbol_stooq,
+                fetched_at=fetched_at,
+            )
+        except Exception as yahoo_exc:  # noqa: BLE001
+            log(
+                f"Yahoo fetch failed for {ticker_tse} ({yahoo_exc}); "
+                f"falling back to Stooq symbol {symbol_stooq}"
+            )
+
+    url = STOOQ_CSV_URL.format(symbol=symbol_stooq)
+    attempts = rate_limit_max_retries + 1
+
+    for attempt in range(1, attempts + 1):
+        raw_text = decode_bytes(
+            fetch_bytes(
+                url,
+                timeout=timeout,
+                retries=retries,
+                sleep_seconds=sleep_seconds,
+            )
+        )
+        try:
+            return normalize_price_csv(
+                raw_text,
+                code=code,
+                ticker_tse=ticker_tse,
+                symbol_stooq=symbol_stooq,
+                fetched_at=fetched_at,
+            )
+        except StooqRateLimitError:
+            if attempt >= attempts:
+                raise RuntimeError(
+                    f"Stooq rate limit persisted for {symbol_stooq}. "
+                    "Wait and rerun the workflow later, or increase --sleep-seconds."
+                )
+            log(
+                f"Stooq rate limit hit for {symbol_stooq}; "
+                f"waiting {rate_limit_cooldown_seconds:.0f}s before retry {attempt + 1}/{attempts}"
+            )
+            time.sleep(rate_limit_cooldown_seconds)
+
+    raise RuntimeError(f"Unreachable rate limit handling state for {symbol_stooq}")
 
 
 def build_latest_panel(
@@ -235,31 +398,33 @@ def main() -> int:
             constituents = constituents[: args.max_symbols]
 
         changed_files = 0
+        reused_existing_files = 0
         failures: list[dict[str, str]] = []
         file_map: dict[str, Path] = {}
+        existing_file_map = {
+            path.stem: path
+            for path in prices_root.glob("*.csv")
+            if path.is_file()
+        }
 
         for idx, row in enumerate(constituents, start=1):
             code = row["code"]
             symbol_stooq = row["symbol_stooq"]
             ticker_tse = row["ticker_tse"]
-            url = STOOQ_CSV_URL.format(symbol=symbol_stooq)
 
             log(f"[{idx}/{len(constituents)}] fetching {symbol_stooq}")
             try:
-                raw_text = decode_bytes(
-                    fetch_bytes(
-                        url,
-                        timeout=args.timeout,
-                        retries=args.retries,
-                        sleep_seconds=args.sleep_seconds,
-                    )
-                )
-                price_rows = normalize_price_csv(
-                    raw_text,
+                price_rows = fetch_symbol_price_rows(
                     code=code,
                     ticker_tse=ticker_tse,
                     symbol_stooq=symbol_stooq,
                     fetched_at=fetched_at,
+                    timeout=args.timeout,
+                    retries=args.retries,
+                    sleep_seconds=args.sleep_seconds,
+                    rate_limit_cooldown_seconds=args.rate_limit_cooldown_seconds,
+                    rate_limit_max_retries=args.rate_limit_max_retries,
+                    price_provider=args.price_provider,
                 )
                 price_file = prices_root / f"{code}.csv"
                 changed = write_text_if_changed(price_file, csv_text(price_rows, PRICE_FIELDNAMES))
@@ -268,10 +433,25 @@ def main() -> int:
                 file_map[code] = price_file
             except Exception as exc:  # noqa: BLE001
                 failures.append({"code": code, "symbol_stooq": symbol_stooq, "error": str(exc)})
-                log(f"ERROR {symbol_stooq}: {exc}")
+                fallback_file = existing_file_map.get(code)
+                if fallback_file and fallback_file.exists():
+                    file_map[code] = fallback_file
+                    reused_existing_files += 1
+                    log(
+                        f"WARN {symbol_stooq}: fetch failed ({exc}); "
+                        f"fallback to existing file {fallback_file.name}"
+                    )
+                else:
+                    log(f"ERROR {symbol_stooq}: {exc}")
 
         if not file_map:
             raise RuntimeError("No price files were written")
+        all_fetches_failed = len(failures) == len(constituents)
+        if all_fetches_failed:
+            log(
+                "WARN all symbol fetches failed; upstream source is likely blocked or now requires authentication. "
+                "Only existing local files were reused."
+            )
 
         success_ratio = len(file_map) / len(constituents)
         if success_ratio < args.min_success_ratio:
@@ -298,14 +478,17 @@ def main() -> int:
             "symbols_requested": len(constituents),
             "symbols_succeeded": len(file_map),
             "symbols_failed": len(failures),
+            "all_fetches_failed": all_fetches_failed,
             "success_ratio": round(success_ratio, 6),
             "price_files_changed": changed_files,
+            "price_files_reused": reused_existing_files,
             "latest_panel_changed": latest_panel_changed,
             "close_wide_changed": close_wide_changed,
             "latest_panel_output": str(latest_panel_path.relative_to(repo_root)),
             "close_wide_output": str(close_wide_path.relative_to(repo_root)),
             "failures": failures[:20],
-            "source_template": STOOQ_CSV_URL,
+            "source_template": YAHOO_CHART_URL if args.price_provider == "yahoo" else STOOQ_CSV_URL,
+            "price_provider": args.price_provider,
         }
         write_status(status_path, status)
         log(
@@ -321,7 +504,8 @@ def main() -> int:
                 "ok": False,
                 "fetched_at": fetched_at,
                 "error": str(exc),
-                "source_template": STOOQ_CSV_URL,
+                "source_template": YAHOO_CHART_URL if args.price_provider == "yahoo" else STOOQ_CSV_URL,
+                "price_provider": args.price_provider,
             },
         )
         log(f"ERROR: {exc}")
