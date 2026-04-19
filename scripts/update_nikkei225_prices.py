@@ -446,11 +446,20 @@ def main() -> int:
 
         if not file_map:
             raise RuntimeError("No price files were written")
-        if len(failures) == len(constituents):
-            raise RuntimeError(
-                "All symbol fetches failed; upstream source is likely blocked or now requires authentication. "
-                "No fresh price rows were downloaded."
-            )
+
+        fresh_fetch_count = len(constituents) - len(failures)
+        stale_only_run = fresh_fetch_count == 0
+        if stale_only_run:
+            if reused_existing_files == len(constituents):
+                log(
+                    "WARN All symbol fetches failed, but existing local files were reused for all symbols. "
+                    "Continuing with stale data."
+                )
+            else:
+                raise RuntimeError(
+                    "All symbol fetches failed; upstream source is likely blocked or now requires authentication. "
+                    "No fresh price rows were downloaded."
+                )
 
         success_ratio = len(file_map) / len(constituents)
         if success_ratio < args.min_success_ratio:
@@ -477,6 +486,8 @@ def main() -> int:
             "symbols_requested": len(constituents),
             "symbols_succeeded": len(file_map),
             "symbols_failed": len(failures),
+            "symbols_fresh": fresh_fetch_count,
+            "stale_only_run": stale_only_run,
             "success_ratio": round(success_ratio, 6),
             "price_files_changed": changed_files,
             "price_files_reused": reused_existing_files,

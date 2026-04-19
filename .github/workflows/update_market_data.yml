@@ -41,11 +41,7 @@ jobs:
         run: python scripts/update_nikkei225_index.py --repo-root .
 
       - name: Update prices from fixed constituents CSV
-<<<<<<< codex/add-export-and-publish-feature-for-tableau-p6h4pg
-        run: python scripts/update_nikkei225_prices.py --repo-root . --price-provider yahoo --sleep-seconds 0.8 --rate-limit-cooldown-seconds 180 --rate-limit-max-retries 1
-=======
-        run: python scripts/update_nikkei225_prices.py --repo-root . --price-provider stooq --sleep-seconds 0.35 --rate-limit-cooldown-seconds 180 --rate-limit-max-retries 1
->>>>>>> main
+        run: python scripts/update_nikkei225_prices.py --repo-root . --price-provider yahoo --retries 5 --sleep-seconds 1.2 --rate-limit-cooldown-seconds 180 --rate-limit-max-retries 1
 
       - name: Build Tableau exports locally
         if: ${{ !(((github.event_name == 'schedule') || env.PUBLISH_DESTINATION == 'google-drive') && env.GOOGLE_DRIVE_FOLDER_ID != '' && env.GOOGLE_SERVICE_ACCOUNT_JSON_BASE64 != '') }}
