@@ -53,9 +53,23 @@ def fetch_bytes(
                 return response.read()
         except (HTTPError, URLError, TimeoutError) as exc:
             last_error = exc
-            log(f"download failed (attempt {attempt}/{retries}) for {url}: {exc}")
+            delay_seconds = min(2**attempt, 10)
+            if isinstance(exc, HTTPError) and exc.code == 429:
+                retry_after = exc.headers.get("Retry-After") if exc.headers else None
+                if retry_after:
+                    try:
+                        delay_seconds = max(delay_seconds, float(retry_after))
+                    except ValueError:
+                        delay_seconds = max(delay_seconds, 60.0)
+                else:
+                    delay_seconds = max(delay_seconds, 60.0)
+
+            log(
+                f"download failed (attempt {attempt}/{retries}) for {url}: {exc}"
+            )
             if attempt < retries:
-                time.sleep(min(2**attempt, 10))
+                log(f"retrying in {delay_seconds:.1f}s")
+                time.sleep(delay_seconds)
 
     raise RuntimeError(f"download failed after {retries} attempts: {last_error}")
 
